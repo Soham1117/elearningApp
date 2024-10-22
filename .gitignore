@@ -1,0 +1,18 @@
+# Ignore build directories
+build*/
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qmake.stash
+*.qmake.cache
+
+# Ignore temporary Qt files
+*.autosave
+*.moc
+*.obj
+*.o
+*.qrc
+*.qmlc
+*.pyc
+*.pyo
+__pycache__/
