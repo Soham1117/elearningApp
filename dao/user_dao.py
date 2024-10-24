@@ -1,16 +1,24 @@
 # user_dao.py
-
+from datetime import datetime
 class UserDAO:
     def __init__(self, db_connection):
         self.db_connection = db_connection
 
-    def create_user(self, user_id, first_name, last_name, email, password, role):
+    def create_user(self, first_name, last_name, email, password, role):
         try:
             cursor = self.db_connection.cursor()
             query = """
             INSERT INTO User (user_id, first_name, last_name, email, password, role)
             VALUES (%s, %s, %s, %s, %s, %s)
             """
+
+            current_date = datetime.now()
+            first_part = first_name[:2].lower()
+            last_part = last_name[:2].lower()
+            month = current_date.strftime("%m")
+            year = current_date.strftime("%y")
+            user_id = f"{first_part}{last_part}{month}{year}"
+
             values = (user_id, first_name, last_name, email, password, role)
             cursor.execute(query, values)
             self.db_connection.commit()
@@ -72,4 +80,28 @@ class UserDAO:
         except Exception as e:
             print(f"Error validating admin credentials: {e}")
             return False
+
+    def enroll(self, first_name, last_name, email, course_token):
+        try:
+            cursor = self.db_connection.cursor()
+            query = '''
+            SELECT u.user_id
+            FROM User u
+            JOIN Student_Enrolls_ActiveCourse seac ON u.user_id = seac.user_id
+            WHERE u.email = %s;
+            '''
+            cursor.execute(query, (email,))
+            result = cursor.fetchone()
+            cursor.close()
+
+            if result:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print(f"Error during enrollment: {e}")
+            return False
+
+
 

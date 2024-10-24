@@ -2,15 +2,15 @@
 
 import sys
 from PySide6.QtWidgets import QApplication
-from ui.home_window_logic import HomeWindowLogic
+from ui.MainWindow_logic import MainWindowLogic
 
 if __name__ == '__main__':
     # Create the PyQt application
     app = QApplication(sys.argv)
 
     # Initialize the Signup Window
-    home_window = HomeWindowLogic()
-    home_window.show()
+    mainWindow = MainWindowLogic()
+    mainWindow.show()
 
     # Execute the application
     sys.exit(app.exec())
