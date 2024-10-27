@@ -130,6 +130,18 @@ class UserDAO:
             print(f"Error validating admin credentials: {e}")
             return False
 
+    def validate_faculty_credentials(self, faculty_id, password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM Faculty WHERE faculty_id = %s AND password = %s"
+            cursor.execute(query, (faculty_id, password))
+            result = cursor.fetchone()
+            cursor.close()
+            return result[0] > 0
+        except Exception as e:
+            print(f"Error validating admin credentials: {e}")
+            return False
+
     def enroll(self, first_name, last_name, email, course_token):
         try:
             cursor = self.db_connection.cursor()

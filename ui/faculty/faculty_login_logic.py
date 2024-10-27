@@ -3,6 +3,7 @@ from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
 from ui.faculty.faculty_login_window import Ui_FacultyLoginWindow
+from ui.faculty.faculty_landing_logic import FacultyLandingLogic
 
 class FacultyLoginLogic(QtWidgets.QWidget):
     def __init__(self, previous_window):
@@ -20,12 +21,12 @@ class FacultyLoginLogic(QtWidgets.QWidget):
     def handle_login(self):
         username = self.ui.lineEdit.text()
         password = self.ui.lineEdit_2.text()
-        role = "Faculty"
 
-        if self.user_dao.validate_credentials(role, username, password):
-            QtWidgets.QMessageBox.information(self, "Login Successful", "Welcome, Faculty!")
-            # self.open_admin_dashboard()
+        if self.user_dao.validate_faculty_credentials(username, password):
+            self.ui_faculty_landing = FacultyLandingLogic(self.previous_window)
+            self.ui_faculty_landing.show()
             self.close()
+            QtWidgets.QMessageBox.information(self, "Login Successful", "Welcome, Faculty!")
         else:
             QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid User ID or password.")
 
