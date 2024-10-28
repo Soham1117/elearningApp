@@ -164,6 +164,55 @@ class UserDAO:
         except Exception as e:
             print(f"Error validating admin credentials: {e}")
             return False
+        
+    def view_faculty_courses(self, faculty_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Course WHERE faculty_id = %s"
+            cursor.execute(query, (faculty_id,))
+            result = cursor.fetchall()
+            cursor.close()
+
+            # print(result)
+            return result, True
+        except Exception as e:
+            print(f"Error validating admin credentials: {e}")
+            return e, False
+    
+    def get_course_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            cursor = self.db_connection.cursor()
+            query = "SELECT course_name FROM Course WHERE course_id = %s"
+            cursor.execute(query, (course_id,))
+            course = cursor.fetchone()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+    
+    def get_students_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            # query = "SELECT course_name FROM Course WHERE course_id = %s"
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT student_id, full_name, email
+                FROM student
+                WHERE student_id IN (
+                    SELECT student_id
+                    FROM Student_Enrolls_Course
+                    WHERE course_id = %s AND status = 'Enrolled'
+                )
+            """
+            cursor.execute(query, (course_id,))
+            course = cursor.fetchall()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
 
     def enroll(self, first_name, last_name, email, course_token):
         try:
@@ -198,9 +247,7 @@ class UserDAO:
         except Exception as e:
             print(f"Error adding new textbook: {e}")
             return False, e
-    
-            
-        
+
     def add_new_chapter(self, textbook_id, chapter_id, chapter_title):
         try:
             cursor = self.db_connection.cursor()
@@ -247,7 +294,7 @@ class UserDAO:
         except Exception as e:
             print(f"Error adding new textbook: {e}")
             return False, e
-    
+
     def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content):
         try:
             cursor = self.db_connection.cursor()
@@ -347,13 +394,13 @@ class UserDAO:
             chapter = cursor.fetchone()
             cursor.close()
             if chapter:
-                return True 
+                return True
             else:
                 return False
         except Exception as e:
             print(f"Error checking chapter: {e}")
             return False
-    
+
     def checkSection(self, textbook_id, chapter_id, section_id):
         try:
             cursor = self.db_connection.cursor()

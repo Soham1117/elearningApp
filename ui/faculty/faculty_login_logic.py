@@ -15,6 +15,8 @@ class FacultyLoginLogic(QtWidgets.QWidget):
         self.db_connection = get_db_connection()
         self.user_dao = UserDAO(self.db_connection)
 
+        self.ui.lineEdit.setText("KeOg1024")
+        self.ui.lineEdit_2.setText("Ko2024!rpc")
         self.ui.pushButton_6.clicked.connect(self.handle_login)
         self.ui.pushButton_5.clicked.connect(self.handle_back)
 
