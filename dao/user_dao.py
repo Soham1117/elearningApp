@@ -139,6 +139,29 @@ class UserDAO:
             cursor.close()
             return result[0] > 0
         except Exception as e:
+            print(f"Error validating faculty credentials: {e}")
+            return False
+        
+    def change_faculty_password(self, faculty_id, old_password, new_password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM Faculty WHERE faculty_id = %s AND password = %s"
+            cursor.execute(query, (faculty_id, old_password))
+            result = cursor.fetchone()
+            cursor.close()
+
+            # query to check if old password matches
+            if not result[0] > 0:
+                return False
+            
+            # query to update password
+            cursor = self.db_connection.cursor()
+            query = "UPDATE Faculty SET password = %s WHERE faculty_id = %s"
+            cursor.execute(query, (new_password, faculty_id))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
             print(f"Error validating admin credentials: {e}")
             return False
 

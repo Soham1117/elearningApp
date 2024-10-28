@@ -23,7 +23,7 @@ class FacultyLoginLogic(QtWidgets.QWidget):
         password = self.ui.lineEdit_2.text()
 
         if self.user_dao.validate_faculty_credentials(username, password):
-            self.ui_faculty_landing = FacultyLandingLogic(self.previous_window)
+            self.ui_faculty_landing = FacultyLandingLogic([self.previous_window, username])
             self.ui_faculty_landing.show()
             self.close()
             QtWidgets.QMessageBox.information(self, "Login Successful", "Welcome, Faculty!")
