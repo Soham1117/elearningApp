@@ -2,7 +2,7 @@ from PySide6 import QtWidgets
 
 from ui.faculty.faculty_goToActiveCourse_window import Ui_FacultyGoToActiveCourseWindow
 
-# from ui.faculty.faculty_viewWorklist_logic import FacultyViewWorklistLogic
+from ui.faculty.faculty_viewWorklist_logic import FacultyViewWorklistLogic
 # from ui.faculty.faculty_approveEnrollment_logic import FacultyApproveEnrollmentLogic
 from ui.faculty.faculty_viewStudents_logic import FacultyViewStudentsLogic
 # from ui.faculty.faculty_addNewChapter_logic import FacultyAddNewChapterLogic
@@ -22,7 +22,7 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
         # course_id = self.ui.lineEdit_3.text()
 
         # handle button clicks
-        # self.ui.pushButton.clicked.connect(self.view_worklist)
+        self.ui.pushButton.clicked.connect(self.view_worklist)
         # self.ui.pushButton_2.clicked.connect(self.approve_enrollment)
         self.ui.pushButton_3.clicked.connect(self.view_students)
         # self.ui.pushButton_4.clicked.connect(self.add_new_chapter)
@@ -30,12 +30,12 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
         # self.ui.pushButton_4.clicked.connect(self.modify_chapters)
         self.ui.pushButton_back.clicked.connect(self.handle_back)
 
-    # def view_worklist(self):
-    #     course_id = self.ui.lineEdit_3.text()
+    def view_worklist(self):
+        course_id = self.ui.lineEdit_3.text()
 
-    #     self.faculty_viewWorklist_logic = FacultyViewWorklistLogic([self, self.faculty_id])
-    #     self.faculty_viewWorklist_logic.show()
-    #     self.close()
+        self.faculty_viewWorklist_logic = FacultyViewWorklistLogic([self, course_id])
+        self.faculty_viewWorklist_logic.show()
+        self.close()
 
     # def approve_enrollment(self):
     #     course_id = self.ui.lineEdit_3.text()

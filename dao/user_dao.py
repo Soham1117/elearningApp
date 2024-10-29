@@ -207,9 +207,30 @@ class UserDAO:
                 )
             """
             cursor.execute(query, (course_id,))
-            course = cursor.fetchall()
+            students = cursor.fetchall()
             cursor.close()
-            return course
+            return students
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+        
+    # get the waiting list of students for a course
+    # Faculty: View Worklist
+    def get_faculty_worklist_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            # query = "SELECT course_name FROM Course WHERE course_id = %s"
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT s.student_id, s.full_name, s.email, e.status
+                FROM Student s
+                JOIN Student_Enrolls_Course e ON s.student_id = e.student_id
+                WHERE e.course_ID = %s AND e.status = 'Pending';
+            """
+            cursor.execute(query, (course_id,))
+            students = cursor.fetchall()
+            cursor.close()
+            return students
         except Exception as e:
             print(f"Error fetching course: {e}")
             return None
