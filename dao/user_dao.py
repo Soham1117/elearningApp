@@ -192,6 +192,19 @@ class UserDAO:
             print(f"Error fetching course: {e}")
             return None
     
+    def get_student_by_student_id(self, student_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Student WHERE student_id = %s"
+            cursor.execute(query, (student_id,))
+            course = cursor.fetchone()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+    
     def get_students_by_course_id(self, course_id):
         try:
             # cursor = self.db_connection.cursor(dictionary=True)
@@ -234,6 +247,34 @@ class UserDAO:
         except Exception as e:
             print(f"Error fetching course: {e}")
             return None
+        
+    # Faculty: Approve Enrollment
+    # Check if student is already enrolled in the course
+    def get_enrollment_by_student_id_and_course_id(self, student_id, course_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Student_Enrolls_Course WHERE student_id = %s AND course_id = %s AND status = 'Enrolled'"
+            cursor.execute(query, (student_id, course_id))
+            enrollment = cursor.fetchone()
+            cursor.close()
+            return enrollment
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+
+    # Faculty: Approve Enrollment
+    # Check if student is already enrolled in the course
+    def approve_enrollment(self, student_id, course_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "UPDATE Student_Enrolls_Course SET status = 'Enrolled' WHERE student_id = %s AND course_id = %s"
+            cursor.execute(query, (student_id, course_id))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error approving enrollment: {e}")
+            return False
 
     def enroll(self, first_name, last_name, email, course_token):
         try:

@@ -3,7 +3,7 @@ from PySide6 import QtWidgets
 from ui.faculty.faculty_goToActiveCourse_window import Ui_FacultyGoToActiveCourseWindow
 
 from ui.faculty.faculty_viewWorklist_logic import FacultyViewWorklistLogic
-# from ui.faculty.faculty_approveEnrollment_logic import FacultyApproveEnrollmentLogic
+from ui.faculty.faculty_approveEnrollment_logic import FacultyApproveEnrollmentLogic
 from ui.faculty.faculty_viewStudents_logic import FacultyViewStudentsLogic
 # from ui.faculty.faculty_addNewChapter_logic import FacultyAddNewChapterLogic
 # from ui.faculty.faculty_modifyChapters_logic import FacultyModifyChaptersLogic
@@ -23,7 +23,7 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
 
         # handle button clicks
         self.ui.pushButton.clicked.connect(self.view_worklist)
-        # self.ui.pushButton_2.clicked.connect(self.approve_enrollment)
+        self.ui.pushButton_2.clicked.connect(self.approve_enrollment)
         self.ui.pushButton_3.clicked.connect(self.view_students)
         # self.ui.pushButton_4.clicked.connect(self.add_new_chapter)
         # self.ui.pushButton_4.clicked.connect(self.add_ta)
@@ -37,12 +37,12 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
         self.faculty_viewWorklist_logic.show()
         self.close()
 
-    # def approve_enrollment(self):
-    #     course_id = self.ui.lineEdit_3.text()
+    def approve_enrollment(self):
+        course_id = self.ui.lineEdit_3.text()
 
-    #     self.faculty_approveEnrollment_logic = FacultyApproveEnrollmentLogic([self, self.faculty_id])
-    #     self.faculty_approveEnrollment_logic.show()
-    #     self.close()
+        self.faculty_approveEnrollment_logic = FacultyApproveEnrollmentLogic([self, course_id])
+        self.faculty_approveEnrollment_logic.show()
+        self.close()
 
     def view_students(self):
         course_id = self.ui.lineEdit_3.text()
