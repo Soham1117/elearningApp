@@ -3,7 +3,7 @@ from PySide6 import QtWidgets
 from ui.faculty.faculty_landing_window import Ui_FacultyLandingWindow
 
 from ui.faculty.faculty_goToActiveCourse_logic import FacultyGoToActiveCourseLogic
-# from ui.faculty.faculty_goToEvaluationCourse_logic import FacultyGoToEvaluationCourseLogic
+from ui.faculty.faculty_goToEvaluationCourse_logic import FacultyGoToEvaluationCourseLogic
 from ui.faculty.faculty_viewCourses_logic import FacultyViewCoursesLogic
 from ui.faculty.faculty_changePassword_logic import FacultyChangePasswordLogic
 
@@ -16,7 +16,7 @@ class FacultyLandingLogic(QtWidgets.QWidget):
         self.faculty_id = args[1]
 
         self.ui.pushButton.clicked.connect(self.go_to_active_courses)
-        # self.ui.pushButton_2.clicked.connect(self.go_to_evaluation_courses)
+        self.ui.pushButton_2.clicked.connect(self.go_to_evaluation_courses)
         self.ui.pushButton_3.clicked.connect(self.view_courses)
         self.ui.pushButton_4.clicked.connect(self.change_password)
         self.ui.pushButton_5.clicked.connect(self.handle_back)
@@ -26,10 +26,10 @@ class FacultyLandingLogic(QtWidgets.QWidget):
         self.ui_go_to_active_course.show()
         self.close()
 
-    # def go_to_evaluation_courses(self):
-    #     self.ui_go_to_evaluation_course = FacultyGoToEvaluationCourseLogic([self, self.faculty_id])
-    #     self.ui_go_to_evaluation_course.show()
-    #     self.close()
+    def go_to_evaluation_courses(self):
+        self.ui_go_to_evaluation_course = FacultyGoToEvaluationCourseLogic([self, self.faculty_id])
+        self.ui_go_to_evaluation_course.show()
+        self.close()
 
     def view_courses(self):
         self.ui_view_courses = FacultyViewCoursesLogic([self, self.faculty_id])

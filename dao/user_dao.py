@@ -191,6 +191,19 @@ class UserDAO:
         except Exception as e:
             print(f"Error fetching course: {e}")
             return None
+        
+    def get_course_type_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            cursor = self.db_connection.cursor()
+            query = "SELECT course_type FROM Course WHERE course_id = %s"
+            cursor.execute(query, (course_id,))
+            courseType = cursor.fetchone()
+            cursor.close()
+            return courseType
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
     
     def get_student_by_student_id(self, student_id):
         try:
