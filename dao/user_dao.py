@@ -53,22 +53,24 @@ class UserDAO:
             print(f"Error creating user: {e}")
             return False
 
-    def create_ta(self, first_name, last_name, email, password, role):
+    def create_ta(self, first_name, last_name, email, password, course_id, faculty_id):
         try:
             cursor = self.db_connection.cursor()
             query = """
-            INSERT INTO TA (user_id, first_name, last_name, email, password, role)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO TA (ta_id, first_name, last_name, email, password, course_id, faculty_id, created_at, updated_at)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
 
             current_date = datetime.now()
-            first_part = first_name[:2].lower()
-            last_part = last_name[:2].lower()
+            created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            first_part = first_name[:1].upper() + first_name[1:2].lower()
+            last_part = last_name[:1].upper() + last_name[1:2].lower()
             month = current_date.strftime("%m")
             year = current_date.strftime("%y")
-            user_id = f"{first_part}{last_part}{month}{year}"
+            ta_id = f"{first_part}{last_part}{month}{year}"
 
-            values = (user_id, first_name, last_name, email, password, role)
+            values = (ta_id, first_name, last_name, email, password, course_id, faculty_id, created_at, updated_at)
             cursor.execute(query, values)
             self.db_connection.commit()
             cursor.close()

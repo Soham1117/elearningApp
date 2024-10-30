@@ -7,7 +7,7 @@ from ui.faculty.faculty_approveEnrollment_logic import FacultyApproveEnrollmentL
 from ui.faculty.faculty_viewStudents_logic import FacultyViewStudentsLogic
 # from ui.faculty.faculty_addNewChapter_logic import FacultyAddNewChapterLogic
 # from ui.faculty.faculty_modifyChapters_logic import FacultyModifyChaptersLogic
-# from ui.faculty.faculty_addTa_logic import FacultyAddTaLogic
+from ui.faculty.faculty_addTA_logic import FacultyAddTALogic
 
 class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
     def __init__(self, args):
@@ -26,8 +26,8 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
         self.ui.pushButton_2.clicked.connect(self.approve_enrollment)
         self.ui.pushButton_3.clicked.connect(self.view_students)
         # self.ui.pushButton_4.clicked.connect(self.add_new_chapter)
-        # self.ui.pushButton_4.clicked.connect(self.add_ta)
-        # self.ui.pushButton_4.clicked.connect(self.modify_chapters)
+        self.ui.pushButton_5.clicked.connect(self.add_ta)
+        # self.ui.pushButton_6.clicked.connect(self.modify_chapters)
         self.ui.pushButton_back.clicked.connect(self.handle_back)
 
     def view_worklist(self):
@@ -65,12 +65,12 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
     #     self.faculty_modifyChapters_logic.show()
     #     self.close()
 
-    # def add_ta(self):
-    #     course_id = self.ui.lineEdit_3.text()
+    def add_ta(self):
+        course_id = self.ui.lineEdit_3.text()
 
-    #     self.faculty_addTa_logic = FacultyAddTaLogic([self, self.faculty_id])
-    #     self.faculty_addTa_logic.show()
-    #     self.close()
+        self.faculty_addTa_logic = FacultyAddTALogic([self, course_id, self.faculty_id])
+        self.faculty_addTa_logic.show()
+        self.close()
 
     def handle_back(self):
         self.previous_window.show()
