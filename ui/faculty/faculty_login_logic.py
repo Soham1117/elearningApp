@@ -2,6 +2,7 @@ import sys
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
+from ui.faculty.faculty_add_new_chapter_window_logic import FacultyAddNewChapterLogic
 from ui.faculty.faculty_login_window import Ui_FacultyLoginWindow
 
 class FacultyLoginLogic(QtWidgets.QWidget):
@@ -23,9 +24,10 @@ class FacultyLoginLogic(QtWidgets.QWidget):
         role = "Faculty"
 
         if self.user_dao.validate_credentials(role, username, password):
-            QtWidgets.QMessageBox.information(self, "Login Successful", "Welcome, Faculty!")
-            # self.open_admin_dashboard()
-            self.close()
+            """ QtWidgets.QMessageBox.information(self, "Login Successful", "Welcome, Faculty!")
+            self.ui_admin_add_new_text = FacultyAddNewChapterLogic([self])
+            self.ui_admin_add_new_text.show()
+            self.close() """
         else:
             QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid User ID or password.")
 

@@ -6,6 +6,6 @@ def get_db_connection():
     host="localhost",
     port="3306",
     user="root",
-    password="Soham123!",
-    database="sys"
+    password="Dama@1122",
+    database="dbms"
 )

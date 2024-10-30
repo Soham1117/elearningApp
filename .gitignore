@@ -16,3 +16,4 @@ build*/
 *.pyc
 *.pyo
 __pycache__/
+myenv/
