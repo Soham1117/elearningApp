@@ -12,7 +12,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 class Ui_FacultyModifyContentBlockWindow(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(720, 480)
+        Form.resize(720, 520)
         self.label = QtWidgets.QLabel(parent=Form)
         self.label.setGeometry(QtCore.QRect(190, 10, 291, 41))
         font = QtGui.QFont()

@@ -181,7 +181,7 @@ class Ui_FacultyAddNewChapterWindow(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "Add New Chapter"))
-        self.label_8.setText(_translate("Form", "Textbook ID:"))
+        self.label_8.setText(_translate("Form", "Course ID:"))
         self.label_6.setText(_translate("Form", "Unique Chapter ID:"))
         self.label_7.setText(_translate("Form", "Chapter Title:"))
         self.pushButton_back_2.setText(_translate("Form", "Back"))

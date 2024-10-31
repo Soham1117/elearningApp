@@ -33,7 +33,9 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
 
     def handle_add_new_section(self):
         chapter_id = self.ui.lineEdit_3.text()
-        textbook_id=self.ui.lineEdit_4.text()
+        textbook_id=self.get_textbook_id_from_course_id()
+        if textbook_id is None:
+            return
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
@@ -46,7 +48,9 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
 
     def handle_modify_section(self):
         chapter_id = self.ui.lineEdit_3.text()
-        textbook_id=self.ui.lineEdit_4.text()
+        textbook_id=self.get_textbook_id_from_course_id()
+        if textbook_id is None:
+            return
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
@@ -63,7 +67,9 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
 
     def handle_hide_chapter(self):
         chapter_id = self.ui.lineEdit_3.text()
-        textbook_id=self.ui.lineEdit_4.text()
+        textbook_id=self.get_textbook_id_from_course_id()
+        if textbook_id is None:
+            return
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
@@ -76,7 +82,9 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
 
     def handle_delete_chapter(self):
         chapter_id = self.ui.lineEdit_3.text()
-        textbook_id=self.ui.lineEdit_4.text()
+        textbook_id=self.get_textbook_id_from_course_id()
+        if textbook_id is None:
+            return
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
@@ -86,4 +94,15 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
             self.close()
         else:
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID or TextBook ID does not exist.")    
+
+    def get_textbook_id_from_course_id(self):
+        course_id=self.ui.lineEdit_4.text()
+        response,id=self.user_dao.get_textbook_id_from_course_id(course_id)
+        print(response,id)
+        if response:
+            return id
+        else:
+            QtWidgets.QMessageBox.warning(self, "Warning",str(id))
+            return None
+
 

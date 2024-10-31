@@ -23,9 +23,9 @@ class FacultyAddNewChapterLogic(QtWidgets.QWidget):
         self.close()
 
     def handle_add_new_section(self):
-        textbook_id = self.ui.lineEdit_5.text()
-        if(self.check_text_book_validity(textbook_id)==False):
-            QtWidgets.QMessageBox.warning(self, "Error", "TextBook does not exist.")
+        
+        textbook_id=self.get_textbook_id_from_course_id()
+        if textbook_id is None:
             return
 
         chapter_id = self.ui.lineEdit_5.text()
@@ -46,10 +46,14 @@ class FacultyAddNewChapterLogic(QtWidgets.QWidget):
         self.admin_landing_window.show()
         self.close()
 
-    def check_text_book_validity(self,id):
-        response, error = self.user_dao.checkTextbook(id)
+
+    def get_textbook_id_from_course_id(self):
+        course_id=self.ui.lineEdit_7.text()
+        response,id=self.user_dao.get_textbook_id_from_course_id(course_id)
+        print(response,id)
         if response:
-            return True
+            return id
         else:
-            return False
+            QtWidgets.QMessageBox.warning(self, "Warning",str(id))
+            return None    
 

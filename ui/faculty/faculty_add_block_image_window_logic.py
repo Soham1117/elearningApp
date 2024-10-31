@@ -20,7 +20,6 @@ class FacultyAddPictureLogic(QtWidgets.QWidget):
 
         self.ui.pushButton_back.clicked.connect(self.handle_back)
         self.ui.pushButton.clicked.connect(self.handle_add_new_picture)
-        self.ui.pushButton_4.clicked.connect(self.handle_admin_landing)
         
     def handle_back(self):    
         self.previous_window.show()
