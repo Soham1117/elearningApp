@@ -53,22 +53,24 @@ class UserDAO:
             print(f"Error creating user: {e}")
             return False
 
-    def create_ta(self, first_name, last_name, email, password, role):
+    def create_ta(self, first_name, last_name, email, password, course_id, faculty_id):
         try:
             cursor = self.db_connection.cursor()
             query = """
-            INSERT INTO TA (user_id, first_name, last_name, email, password, role)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO TA (ta_id, first_name, last_name, email, password, course_id, faculty_id, created_at, updated_at)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
 
             current_date = datetime.now()
-            first_part = first_name[:2].lower()
-            last_part = last_name[:2].lower()
+            created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            first_part = first_name[:1].upper() + first_name[1:2].lower()
+            last_part = last_name[:1].upper() + last_name[1:2].lower()
             month = current_date.strftime("%m")
             year = current_date.strftime("%y")
-            user_id = f"{first_part}{last_part}{month}{year}"
+            ta_id = f"{first_part}{last_part}{month}{year}"
 
-            values = (user_id, first_name, last_name, email, password, role)
+            values = (ta_id, first_name, last_name, email, password, course_id, faculty_id, created_at, updated_at)
             cursor.execute(query, values)
             self.db_connection.commit()
             cursor.close()
@@ -130,6 +132,165 @@ class UserDAO:
             print(f"Error validating admin credentials: {e}")
             return False
 
+    def validate_faculty_credentials(self, faculty_id, password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM Faculty WHERE faculty_id = %s AND password = %s"
+            cursor.execute(query, (faculty_id, password))
+            result = cursor.fetchone()
+            cursor.close()
+            return result[0] > 0
+        except Exception as e:
+            print(f"Error validating faculty credentials: {e}")
+            return False
+        
+    def change_faculty_password(self, faculty_id, old_password, new_password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM Faculty WHERE faculty_id = %s AND password = %s"
+            cursor.execute(query, (faculty_id, old_password))
+            result = cursor.fetchone()
+            cursor.close()
+
+            # query to check if old password matches
+            if not result[0] > 0:
+                return False
+            
+            # query to update password
+            cursor = self.db_connection.cursor()
+            query = "UPDATE Faculty SET password = %s WHERE faculty_id = %s"
+            cursor.execute(query, (new_password, faculty_id))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error validating admin credentials: {e}")
+            return False
+        
+    def view_faculty_courses(self, faculty_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Course WHERE faculty_id = %s"
+            cursor.execute(query, (faculty_id,))
+            result = cursor.fetchall()
+            cursor.close()
+
+            # print(result)
+            return result, True
+        except Exception as e:
+            print(f"Error validating admin credentials: {e}")
+            return e, False
+    
+    def get_course_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            cursor = self.db_connection.cursor()
+            query = "SELECT course_name FROM Course WHERE course_id = %s"
+            cursor.execute(query, (course_id,))
+            course = cursor.fetchone()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+        
+    def get_course_type_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            cursor = self.db_connection.cursor()
+            query = "SELECT course_type FROM Course WHERE course_id = %s"
+            cursor.execute(query, (course_id,))
+            courseType = cursor.fetchone()
+            cursor.close()
+            return courseType
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+    
+    def get_student_by_student_id(self, student_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Student WHERE student_id = %s"
+            cursor.execute(query, (student_id,))
+            course = cursor.fetchone()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+    
+    def get_students_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            # query = "SELECT course_name FROM Course WHERE course_id = %s"
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT student_id, full_name, email
+                FROM student
+                WHERE student_id IN (
+                    SELECT student_id
+                    FROM Student_Enrolls_Course
+                    WHERE course_id = %s AND status = 'Enrolled'
+                )
+            """
+            cursor.execute(query, (course_id,))
+            students = cursor.fetchall()
+            cursor.close()
+            return students
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+        
+    # get the waiting list of students for a course
+    # Faculty: View Worklist
+    def get_faculty_worklist_by_course_id(self, course_id):
+        try:
+            # cursor = self.db_connection.cursor(dictionary=True)
+            # query = "SELECT course_name FROM Course WHERE course_id = %s"
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT s.student_id, s.full_name, s.email, e.status
+                FROM Student s
+                JOIN Student_Enrolls_Course e ON s.student_id = e.student_id
+                WHERE e.course_ID = %s AND e.status = 'Pending';
+            """
+            cursor.execute(query, (course_id,))
+            students = cursor.fetchall()
+            cursor.close()
+            return students
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+        
+    # Faculty: Approve Enrollment
+    # Check if student is already enrolled in the course
+    def get_enrollment_by_student_id_and_course_id(self, student_id, course_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Student_Enrolls_Course WHERE student_id = %s AND course_id = %s AND status = 'Enrolled'"
+            cursor.execute(query, (student_id, course_id))
+            enrollment = cursor.fetchone()
+            cursor.close()
+            return enrollment
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+
+    # Faculty: Approve Enrollment
+    # Check if student is already enrolled in the course
+    def approve_enrollment(self, student_id, course_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "UPDATE Student_Enrolls_Course SET status = 'Enrolled' WHERE student_id = %s AND course_id = %s"
+            cursor.execute(query, (student_id, course_id))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error approving enrollment: {e}")
+            return False
+
     def enroll(self, first_name, last_name, email, course_token):
         try:
             cursor = self.db_connection.cursor()
@@ -163,7 +324,7 @@ class UserDAO:
         except Exception as e:
             print(f"Error adding new textbook: {e}")
             return False, e
-        
+
     def add_new_chapter(self, textbook_id, chapter_id, chapter_title):
         try:
             cursor = self.db_connection.cursor()
@@ -210,7 +371,7 @@ class UserDAO:
         except Exception as e:
             print(f"Error adding new textbook: {e}")
             return False, e
-    
+
     def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content):
         try:
             cursor = self.db_connection.cursor()
@@ -310,13 +471,13 @@ class UserDAO:
             chapter = cursor.fetchone()
             cursor.close()
             if chapter:
-                return True 
+                return True
             else:
                 return False
         except Exception as e:
             print(f"Error checking chapter: {e}")
             return False
-    
+
     def checkSection(self, textbook_id, chapter_id, section_id):
         try:
             cursor = self.db_connection.cursor()
