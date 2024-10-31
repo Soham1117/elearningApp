@@ -135,7 +135,56 @@ class UserDAO:
         except Exception as e:
             print(f"Error validating admin credentials: {e}")
             return False
+			
+    def validate_credentials_ta(self, ta_id, password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM TA WHERE ta_id = %s AND password = %s"
+            cursor.execute(query, (ta_id, password))
+            result = cursor.fetchone()
+            cursor.close()
+            return result[0] > 0
+        except Exception as e:
+            print(f"Error validating TA credentials: {e}")
+            return False
+        
+    def change_password_ta(self, ta_id, old_password, new_password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM TA WHERE ta_id = %s AND password = %s"
+            cursor.execute(query, (ta_id, old_password))
+            result = cursor.fetchone()
+            cursor.close()
 
+            # query to check if old password matches
+            if not result[0] > 0:
+                return False
+            
+            # query to update password
+            cursor = self.db_connection.cursor()
+            query = "UPDATE TA SET password = %s WHERE ta_id = %s"
+            cursor.execute(query, (new_password, ta_id))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error validating TA credentials: {e}")
+            return False
+
+    def view_courses_ta(self, ta_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Course WHERE ta_id = %s"
+            cursor.execute(query, (ta_id,))
+            result = cursor.fetchall()
+            cursor.close()
+
+            # print(result)
+            return result, True
+        except Exception as e:
+            print(f"Error validating ta credentials: {e}")
+            return e, False
+			
     def validate_faculty_credentials(self, faculty_id, password):
         try:
             cursor = self.db_connection.cursor()
@@ -257,7 +306,20 @@ class UserDAO:
         except Exception as e:
             print(f"Error fetching course: {e}")
             return None
-        
+
+
+    def get_textbook_by_course_id(self, course_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT textbook_id FROM Course WHERE course_id = %s"
+            cursor.execute(query, (course_id,))
+            textbook_id = cursor.fetchone()
+            cursor.close()
+            return textbook_id
+        except Exception as e:
+            print(f"Error fetching textbook: {e}")
+            return None
+	
     # get the waiting list of students for a course
     # Faculty: View Worklist
     def get_faculty_worklist_by_course_id(self, course_id):
@@ -319,6 +381,61 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 
+    def hide_content_block(self, textbook_id, chapter_id, section_id, block_id):
+            try:
+                cursor = self.db_connection.cursor()
+                
+                # Check if the block is already hidden
+                check_query = """
+                    SELECT hidden FROM Blocks
+                    WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+                """
+                cursor.execute(check_query, (textbook_id, chapter_id, section_id, block_id))
+                
+                block = cursor.fetchone()
+                
+                if block:
+                    # Toggle hidden status
+                    hidden = block[0]
+                    new_value = 'no' if hidden == 'yes' else 'yes'
+                    
+                    # Update hidden status
+                    current_date = datetime.now()
+                    updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+                    update_query = """
+                        UPDATE Blocks
+                        SET hidden = %s, updated_at = %s
+                        WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+                    """
+                    cursor.execute(update_query, (new_value, updated_at, textbook_id, chapter_id, section_id, block_id))
+                    
+                    self.db_connection.commit()
+                    cursor.close()
+                    
+                    return True, "Block hidden status updated successfully"
+                else:
+                    cursor.close()
+                    return False, "Block not found"
+            except Exception as e:
+                print(f"Error updating block hidden status: {e}")
+                return False, e
+            
+    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                DELETE FROM Blocks
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+            """
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))
+            
+            # Commit the deletion
+            self.db_connection.commit()
+            cursor.close()
+            return True, "Block deleted successfully"
+        except Exception as e:
+            print(f"Error deleting block: {e}")
+            return False, e
     def add_new_chapter(self, textbook_id, chapter_id, chapter_title):
         try:
             cursor = self.db_connection.cursor()
@@ -333,7 +450,22 @@ class UserDAO:
         except Exception as e:
             print(f"Error adding new textbook: {e}")
             return False, e
-        
+    
+    def add_new_content_block(self, textbook_id, chapter_id, section_id, section_title):
+        try:
+            cursor = self.db_connection.cursor()
+            current_date = datetime.now()
+            created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            query = "INSERT INTO Section (textbook_id, chapter_id, section_id, title, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, section_title, created_at, updated_at))
+            self.db_connection.commit()
+            cursor.close()
+            return True, "Textbook added successfully"
+        except Exception as e:
+            print(f"Error adding new textbook: {e}")
+            return False, e
+	    
     def add_new_section(self, textbook_id, chapter_id, section_id, section_title):
         try:
             cursor = self.db_connection.cursor()
