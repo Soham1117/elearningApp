@@ -17,3 +17,4 @@ build*/
 *.pyo
 __pycache__/
 db/db_connection.py
+myenv/

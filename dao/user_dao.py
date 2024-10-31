@@ -340,7 +340,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
         
-    def add_new_content_block(self, textbook_id, chapter_id, section_id, section_title):
+    def add_new_section(self, textbook_id, chapter_id, section_id, section_title):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -554,3 +554,258 @@ class UserDAO:
         except Exception as e:
             print(f"Error adding evaluation course: {e}")
             return False, e
+
+    def hide_section(self, textbook_id, chapter_id, section_id):
+        def check_section_is_hidden(textbook_id, chapter_id, section_id):
+            try:
+                cursor = self.db_connection.cursor()
+                query = """
+                    SELECT hidden FROM Section
+                    WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s
+                """
+                cursor.execute(query, (textbook_id, chapter_id, section_id))
+                
+                section = cursor.fetchone()
+                cursor.close()
+                
+                if section:
+                    hidden = section[0]  
+                    return True, hidden
+                else:
+                    return False, None 
+            except Exception as e:
+                print(f"Error checking section: {e}")
+                return False, e
+                
+        try:
+            response, hidden_status = check_section_is_hidden(textbook_id, chapter_id, section_id)
+            if response and hidden_status == 'yes':
+                new_value = 'no'
+            else:
+                new_value = 'yes'    
+            
+            cursor = self.db_connection.cursor()
+            current_date = datetime.now()
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            query = """
+                UPDATE Section
+                SET hidden = %s, updated_at = %s
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s
+            """
+            cursor.execute(query, (new_value, updated_at, textbook_id, chapter_id, section_id))
+            
+            self.db_connection.commit()
+            cursor.close()
+            return True, "Section hidden status updated successfully"
+        except Exception as e:
+            print(f"Error updating section hidden status: {e}")
+            return False, e
+
+
+    def delete_section(self, textbook_id, chapter_id, section_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                DELETE FROM Section
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s
+            """
+            cursor.execute(query, (textbook_id, chapter_id, section_id))
+            
+            # Commit the deletion
+            self.db_connection.commit()
+            cursor.close()
+            
+            return True, "Section deleted successfully"
+        except Exception as e:
+            print(f"Error deleting section: {e}")
+            return False, e
+
+
+    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                DELETE FROM Blocks
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+            """
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))
+            
+            # Commit the deletion
+            self.db_connection.commit()
+            cursor.close()
+            
+            return True, "Block deleted successfully"
+        except Exception as e:
+            print(f"Error deleting block: {e}")
+            return False, e
+
+    
+    def hide_content_block(self, textbook_id, chapter_id, section_id, block_id):
+        try:
+            cursor = self.db_connection.cursor()
+            
+            # Check if the block is already hidden
+            check_query = """
+                SELECT hidden FROM Blocks
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+            """
+            cursor.execute(check_query, (textbook_id, chapter_id, section_id, block_id))
+            
+            block = cursor.fetchone()
+            
+            if block:
+                # Toggle hidden status
+                hidden = block[0]
+                new_value = 'no' if hidden == 'yes' else 'yes'
+                
+                # Update hidden status
+                current_date = datetime.now()
+                updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+                update_query = """
+                    UPDATE Blocks
+                    SET hidden = %s, updated_at = %s
+                    WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+                """
+                cursor.execute(update_query, (new_value, updated_at, textbook_id, chapter_id, section_id, block_id))
+                
+                self.db_connection.commit()
+                cursor.close()
+                
+                return True, "Block hidden status updated successfully"
+            else:
+                cursor.close()
+                return False, "Block not found"
+        except Exception as e:
+            print(f"Error updating block hidden status: {e}")
+            return False, e 
+
+    def hide_chapter(self, textbook_id, chapter_id):
+        def check_chapter_is_hidden(textbook_id, chapter_id):
+            try:
+                cursor = self.db_connection.cursor()
+                query = """
+                    SELECT hidden FROM Chapter
+                    WHERE textbook_id = %s AND chapter_id = %s
+                """
+                cursor.execute(query, (textbook_id, chapter_id))
+                
+                chapter = cursor.fetchone()
+                cursor.close()
+                
+                if chapter:
+                    hidden = chapter[0]  
+                    return True, hidden
+                else:
+                    return False, None 
+            except Exception as e:
+                print(f"Error checking chapter: {e}")
+                return False, e
+                
+        try:
+            response, hidden_status = check_chapter_is_hidden(textbook_id, chapter_id)
+            if response and hidden_status == 'yes':
+                new_value = 'no'
+            else:
+                new_value = 'yes'    
+            
+            cursor = self.db_connection.cursor()
+            current_date = datetime.now()
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            query = """
+                UPDATE Chapter
+                SET hidden = %s, updated_at = %s
+                WHERE textbook_id = %s AND chapter_id = %s
+            """
+            cursor.execute(query, (new_value, updated_at, textbook_id, chapter_id))
+            
+            self.db_connection.commit()
+            cursor.close()
+            return True, "Chapter hidden status updated successfully"
+        except Exception as e:
+            print(f"Error updating chapter hidden status: {e}")
+            return False, e
+
+
+    def delete_chapter(self, textbook_id, chapter_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                DELETE FROM Chapter
+                WHERE textbook_id = %s AND chapter_id = %s
+            """
+            cursor.execute(query, (textbook_id, chapter_id))
+            
+            # Commit the deletion
+            self.db_connection.commit()
+            cursor.close()
+            
+            return True, "Chapter deleted successfully"
+        except Exception as e:
+            print(f"Error deleting chapter: {e}")
+            return False, e
+
+    def delete_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                DELETE FROM Activity
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND unique_activity_id = %s
+            """
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, unique_activity_id))
+            
+            # Commit the deletion
+            self.db_connection.commit()
+            cursor.close()
+            
+            return True, "Activity deleted successfully"
+        except Exception as e:
+            print(f"Error deleting activity: {e}")
+            return False, e        
+       
+    def hide_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id):
+        def check_activity_is_hidden(textbook_id, chapter_id, section_id, block_id, unique_activity_id):
+            try:
+                cursor = self.db_connection.cursor()
+                query = """
+                    SELECT hidden FROM Activity
+                    WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s 
+                        AND block_id = %s AND unique_activity_id = %s
+                """
+                cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, unique_activity_id))
+                
+                activity = cursor.fetchone()
+                cursor.close()
+                
+                if activity:
+                    hidden = activity[0]
+                    return True, hidden
+                else:
+                    return False, None
+            except Exception as e:
+                print(f"Error checking activity: {e}")
+                return False, e
+                
+        try:
+            response, hidden_status = check_activity_is_hidden(textbook_id, chapter_id, section_id, block_id, unique_activity_id)
+            if response and hidden_status == 'yes':
+                new_value = 'no'
+            else:
+                new_value = 'yes'
+            
+            cursor = self.db_connection.cursor()
+            current_date = datetime.now()
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            query = """
+                UPDATE Activity
+                SET hidden = %s, updated_at = %s
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s 
+                    AND block_id = %s AND unique_activity_id = %s
+            """
+            cursor.execute(query, (new_value, updated_at, textbook_id, chapter_id, section_id, block_id, unique_activity_id))
+            
+            self.db_connection.commit()
+            cursor.close()
+            return True, "Activity hidden status updated successfully"
+        except Exception as e:
+            print(f"Error updating activity hidden status: {e}")
+            return False, e        
