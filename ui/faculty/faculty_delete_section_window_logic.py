@@ -33,7 +33,10 @@ class FacultyDeleteSectionLogic(QtWidgets.QWidget):
         response,error=self.user_dao.delete_section(self.textbook_id,self.chapter_id,self.section_id)
         if response:
            QtWidgets.QMessageBox.information(self,'Information','Section Deleted successfully!!') 
+           self.previous_window.show()
+           self.close()
         else:
-            QtWidgets.QMessageBox.warning(self, "Warning", str(error))    
+            QtWidgets.QMessageBox.warning(self, "Warning", str(error))
+            return    
 
         

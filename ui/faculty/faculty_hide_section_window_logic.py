@@ -30,6 +30,7 @@ class FacultyHideSectionLogic(QtWidgets.QWidget):
 
     def handle_hide_section(self):
         response,error=self.user_dao.hide_section(self.textbook_id,self.chapter_id,self.section_id)
+        print(response,error)
         if response:
            QtWidgets.QMessageBox.information(self,'Information','Section hidden status updated successfully!!') 
         else:

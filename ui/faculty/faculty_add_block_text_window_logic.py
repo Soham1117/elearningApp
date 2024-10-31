@@ -20,7 +20,6 @@ class FacultyAddTextLogic(QtWidgets.QWidget):
 
         self.ui.pushButton_back.clicked.connect(self.handle_back)
         self.ui.pushButton.clicked.connect(self.handle_add_new_text)
-        self.ui.pushButton_2.clicked.connect(self.handle_admin_landing)
         
     def handle_back(self):    
         self.previous_window.show()

@@ -2,7 +2,9 @@ import sys
 from PySide6 import QtWidgets
 from ui.MainWindow_window import Ui_MainWindow
 from ui.admin.admin_login_logic import AdminLoginLogic
+from ui.faculty.faculty_add_new_chapter_window_logic import FacultyAddNewChapterLogic
 from ui.faculty.faculty_login_logic import FacultyLoginLogic
+from ui.faculty.faculty_modify_chapter_window_logic import FacultyModifyChapterLogic
 from ui.ta.ta_login_logic import TALoginLogic
 from ui.student.student_login_logic import StudentLoginLogic
 
@@ -33,8 +35,8 @@ class MainWindowLogic(QtWidgets.QWidget):
         self.ui_admin.show()
         self.close()
     def open_faculty_dashboard(self):
-        self.ui_faculty = FacultyLoginLogic(self)
-        self.ui_faculty.show()
+        self.ui_admin_add_new_text = FacultyModifyChapterLogic([self])
+        self.ui_admin_add_new_text.show()
         self.close()
 
     def open_ta_dashboard(self):

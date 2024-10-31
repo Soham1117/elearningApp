@@ -227,4 +227,4 @@ class Ui_FacultyModifyChapterWindow(object):
         self.pushButton_3.setText(_translate("Form", "Hide Chapter"))
         self.delete_chapter.setText(_translate("Form", "Delete Chapter"))
         self.pushButton_back.setText(_translate("Form", "Back"))
-        self.label_5.setText(_translate("Form", "Textbook ID:"))
+        self.label_5.setText(_translate("Form", "Course ID:"))

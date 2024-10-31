@@ -696,6 +696,7 @@ class UserDAO:
                 
                 if section:
                     hidden = section[0]  
+                    print(hidden,'Hidden value')
                     return True, hidden
                 else:
                     return False, None 
@@ -729,8 +730,10 @@ class UserDAO:
 
 
     def delete_section(self, textbook_id, chapter_id, section_id):
+        cursor = self.db_connection.cursor()
         try:
-            cursor = self.db_connection.cursor()
+            
+            print(textbook_id,section_id,chapter_id,'in delete section')
             query = """
                 DELETE FROM Section
                 WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s
@@ -743,13 +746,16 @@ class UserDAO:
             
             return True, "Section deleted successfully"
         except Exception as e:
+            cursor.close()
             print(f"Error deleting section: {e}")
             return False, e
 
 
     def delete_content_block(self, textbook_id, chapter_id, section_id, block_id):
+        cursor = self.db_connection.cursor()
         try:
-            cursor = self.db_connection.cursor()
+            
+            print(textbook_id,chapter_id,section_id,block_id)
             query = """
                 DELETE FROM Blocks
                 WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
@@ -762,6 +768,7 @@ class UserDAO:
             
             return True, "Block deleted successfully"
         except Exception as e:
+            cursor.close()
             print(f"Error deleting block: {e}")
             return False, e
 
@@ -782,6 +789,7 @@ class UserDAO:
             if block:
                 # Toggle hidden status
                 hidden = block[0]
+                print(hidden,'Hidden value')
                 new_value = 'no' if hidden == 'yes' else 'yes'
                 
                 # Update hidden status
@@ -853,8 +861,9 @@ class UserDAO:
 
 
     def delete_chapter(self, textbook_id, chapter_id):
+        cursor = self.db_connection.cursor()
         try:
-            cursor = self.db_connection.cursor()
+            
             query = """
                 DELETE FROM Chapter
                 WHERE textbook_id = %s AND chapter_id = %s
@@ -867,12 +876,14 @@ class UserDAO:
             
             return True, "Chapter deleted successfully"
         except Exception as e:
+            cursor.close()
             print(f"Error deleting chapter: {e}")
             return False, e
 
     def delete_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id):
+        cursor = self.db_connection.cursor()
         try:
-            cursor = self.db_connection.cursor()
+            
             query = """
                 DELETE FROM Activity
                 WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND unique_activity_id = %s
@@ -885,6 +896,7 @@ class UserDAO:
             
             return True, "Activity deleted successfully"
         except Exception as e:
+            cursor.close()
             print(f"Error deleting activity: {e}")
             return False, e        
        
@@ -1021,3 +1033,25 @@ class UserDAO:
         except Exception as e:
             print(f"Error fetching course: {e}")
             return None
+            return False, e        
+    
+    def get_textbook_id_from_course_id(self, course_id):
+        cursor = self.db_connection.cursor()
+        try:
+            query = "SELECT textbook_id FROM Course WHERE course_id = %s"
+            
+            cursor.execute(query, (course_id,))
+            
+            result = cursor.fetchone()
+            
+            if result:
+                return True, result[0] 
+            else:
+                return False, "No textbook found for the given course_id"
+        
+        except Exception as e:
+            print(f"Error fetching textbook_id: {e}")
+            return False, str(e)
+        
+        finally:
+            cursor.close()
