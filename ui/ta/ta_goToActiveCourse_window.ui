@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>161</x>
+     <y>133</y>
+     <width>386</width>
+     <height>307</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Course ID</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+        background-color: #2b2b2b;  /* Dark background */
+        color: #fcba03;  /* Text color */
+        border: 2px solid #3d3d3d;  /* Border color */
+        border-radius: 8px;  /* Rounded corners */
+        padding: 8px;  /* Padding inside the input field */
+        font-size: 16px;  /* Font size */
+        font-weight: bold;  /* Bold font */
+    }
+
+    QLineEdit:hover {
+        background-color: #3d3d3d;  /* Background when hovered */
+        border: 2px solid #fcba03;  /* Border color when hovered */
+    }
+
+    QLineEdit:focus {
+        background-color: #1a1a1a;  /* Background when focused */
+        border: 2px solid #fcba03;  /* Border color when focused */
+        color: #ffffff;  /* Text color when focused */
+    }</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+        </property>
+        <property name="text">
+         <string>View Students</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+      </property>
+      <property name="text">
+       <string>Add New Chapter</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+      </property>
+      <property name="text">
+       <string>Modify Chapters</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_back">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>60</y>
+     <width>321</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>21</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>TA - Go to Active Course</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
