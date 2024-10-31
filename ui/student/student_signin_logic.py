@@ -2,6 +2,7 @@ from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
 from ui.student.student_signin_window import Ui_StudentSigninWindow
+from ui.student.student_landing_logic import StudentLandingLogic
 
 class StudentSigninLogic(QtWidgets.QWidget):
     def __init__(self, previous_window):
@@ -17,12 +18,18 @@ class StudentSigninLogic(QtWidgets.QWidget):
         self.ui.pushButton_5.clicked.connect(self.handle_back)
 
     def handle_login(self):
-        username = self.ui.lineEdit.text()
+        student_id = self.ui.lineEdit.text()
         password = self.ui.lineEdit_2.text()
-        role = "Student"
 
-        if self.user_dao.validate_credentials(role, username, password):
+        # check if fields are empty
+        if not student_id or not password:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+
+        if self.user_dao.validate_student_credentials(student_id, password):
             QtWidgets.QMessageBox.information(self, "Login Successful", "Welcome, Student!")
+            self.ui_student_landing = StudentLandingLogic([self.previous_window, student_id])
+            self.ui_student_landing.show()
             self.close()
         else:
             QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid User ID or password.")
