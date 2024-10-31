@@ -29,22 +29,26 @@ class UserDAO:
             print(f"Error creating user: {e}")
             return False
     
-    def create_student(self, first_name, last_name, email, password, role):
+    def create_student(self, first_name, last_name, email, password):
         try:
             cursor = self.db_connection.cursor()
             query = """
-            INSERT INTO Student (user_id, first_name, last_name, email, password, role)
+            INSERT INTO Student (student_id, full_name, email, password, created_at, updated_at)
             VALUES (%s, %s, %s, %s, %s, %s)
             """
 
             current_date = datetime.now()
-            first_part = first_name[:2].lower()
-            last_part = last_name[:2].lower()
+            first_part = first_name[:1].upper() + first_name[1:2].lower()
+            last_part = last_name[:1].upper() + last_name[1:2].lower()
             month = current_date.strftime("%m")
             year = current_date.strftime("%y")
-            user_id = f"{first_part}{last_part}{month}{year}"
 
-            values = (user_id, first_name, last_name, email, password, role)
+            student_id = f"{first_part}{last_part}{month}{year}"
+            full_name = first_name + " " + last_name
+            created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+
+            values = (student_id, full_name, email, password, created_at, updated_at)
             cursor.execute(query, values)
             self.db_connection.commit()
             cursor.close()
@@ -140,6 +144,18 @@ class UserDAO:
             result = cursor.fetchone()
             cursor.close()
             return result[0] > 0
+        except Exception as e:
+            print(f"Error validating faculty credentials: {e}")
+            return False
+        
+    def validate_student_credentials(self, student_id, password):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Student WHERE student_id = %s AND password = %s"
+            cursor.execute(query, (student_id, password))
+            result = cursor.fetchone()
+            cursor.close()
+            return result
         except Exception as e:
             print(f"Error validating faculty credentials: {e}")
             return False
@@ -289,28 +305,6 @@ class UserDAO:
             return True
         except Exception as e:
             print(f"Error approving enrollment: {e}")
-            return False
-
-    def enroll(self, first_name, last_name, email, course_token):
-        try:
-            cursor = self.db_connection.cursor()
-            query = '''
-            SELECT u.user_id
-            FROM User u
-            JOIN Student_Enrolls_ActiveCourse seac ON u.user_id = seac.user_id
-            WHERE u.email = %s;
-            '''
-            cursor.execute(query, (email,))
-            result = cursor.fetchone()
-            cursor.close()
-
-            if result:
-                return True
-            else:
-                return False
-
-        except Exception as e:
-            print(f"Error during enrollment: {e}")
             return False
 
     def add_new_etextbook(self, title, etextbook_id):
@@ -808,4 +802,73 @@ class UserDAO:
             return True, "Activity hidden status updated successfully"
         except Exception as e:
             print(f"Error updating activity hidden status: {e}")
-            return False, e        
+            return False, e
+        
+    
+    ## STUDENT RELATED QUERIES ##
+
+    def is_valid_active_course_token(self, course_token):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Course WHERE unique_token = %s AND course_type = 'Active'"
+            cursor.execute(query, (course_token,))
+            result = cursor.fetchone()
+            cursor.close()
+            if result:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(f"Error during enrollment: {e}")
+            return False
+        
+    def check_student_in_enrolls(self, first_name, last_name, email):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT * FROM Student WHERE full_name = %s AND email = %s"
+            cursor.execute(query, (first_name + " " + last_name, email,))
+            result = cursor.fetchone()
+            cursor.close()
+            if result:
+                return True, True
+            else:
+                return True, False
+        except Exception as e:
+            print(f"Error during enrollment: {e}")
+            return False, False
+
+    def enroll(self, first_name, last_name, email, course_token):
+        try:
+            cursor = self.db_connection.cursor()
+
+            # Get student_id
+            query = "SELECT student_id FROM Student WHERE full_name = %s AND email = %s"
+            cursor.execute(query, (first_name + " " + last_name, email,))
+            student_id = cursor.fetchone()[0]
+
+            # Get course_id
+            query = "SELECT course_id FROM Course WHERE unique_token = %s AND course_type = 'Active'"
+            cursor.execute(query, (course_token,))
+            course_id = cursor.fetchone()[0]
+
+            if not student_id or not course_id:
+                cursor.close()
+                return False
+
+            current_date = datetime.now()           
+            created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
+
+            # Enroll student in course
+            query = '''
+                INSERT INTO Student_Enrolls_Course
+                (student_id, course_id, status, created_at, updated_at)
+                VALUES  (%s, %s, %s, %s, %s)
+            '''
+            cursor.execute(query, (student_id, course_id, "Pending", created_at, updated_at,))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error during enrollment: {e}")
+            return False

@@ -5,8 +5,8 @@ from ui.faculty.faculty_goToActiveCourse_window import Ui_FacultyGoToActiveCours
 from ui.faculty.faculty_viewWorklist_logic import FacultyViewWorklistLogic
 from ui.faculty.faculty_approveEnrollment_logic import FacultyApproveEnrollmentLogic
 from ui.faculty.faculty_viewStudents_logic import FacultyViewStudentsLogic
-# from ui.faculty.faculty_addNewChapter_logic import FacultyAddNewChapterLogic
-# from ui.faculty.faculty_modifyChapters_logic import FacultyModifyChaptersLogic
+from ui.faculty.faculty_add_new_chapter_window_logic import FacultyAddNewChapterLogic
+from ui.faculty.faculty_modify_chapter_window_logic import FacultyModifyChapterLogic
 from ui.faculty.faculty_addTA_logic import FacultyAddTALogic
 
 class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
@@ -25,9 +25,9 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
         self.ui.pushButton.clicked.connect(self.view_worklist)
         self.ui.pushButton_2.clicked.connect(self.approve_enrollment)
         self.ui.pushButton_3.clicked.connect(self.view_students)
-        # self.ui.pushButton_4.clicked.connect(self.add_new_chapter)
+        self.ui.pushButton_4.clicked.connect(self.add_new_chapter)
         self.ui.pushButton_5.clicked.connect(self.add_ta)
-        # self.ui.pushButton_6.clicked.connect(self.modify_chapters)
+        self.ui.pushButton_6.clicked.connect(self.modify_chapters)
         self.ui.pushButton_back.clicked.connect(self.handle_back)
 
     def view_worklist(self):
@@ -51,19 +51,19 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
         self.faculty_viewStudents_logic.show()
         self.close()
 
-    # def add_new_chapter(self):
-    #     course_id = self.ui.lineEdit_3.text()
+    def add_new_chapter(self):
+        course_id = self.ui.lineEdit_3.text()
 
-    #     self.faculty_addNewChapter_logic = FacultyAddNewChapterLogic([self, self.faculty_id])
-    #     self.faculty_addNewChapter_logic.show()
-    #     self.close()
+        self.faculty_addNewChapter_logic = FacultyAddNewChapterLogic([self, self.faculty_id])
+        self.faculty_addNewChapter_logic.show()
+        self.close()
 
-    # def modify_chapters(self):
-    #     course_id = self.ui.lineEdit_3.text()
+    def modify_chapters(self):
+        course_id = self.ui.lineEdit_3.text()
 
-    #     self.faculty_modifyChapters_logic = FacultyModifyChaptersLogic([self, self.faculty_id])
-    #     self.faculty_modifyChapters_logic.show()
-    #     self.close()
+        self.faculty_modifyChapters_logic = FacultyModifyChapterLogic([self, self.faculty_id])
+        self.faculty_modifyChapters_logic.show()
+        self.close()
 
     def add_ta(self):
         course_id = self.ui.lineEdit_3.text()
