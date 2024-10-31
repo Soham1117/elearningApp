@@ -278,9 +278,9 @@ class UserDAO:
             cursor = self.db_connection.cursor()
             query = "SELECT * FROM Student WHERE student_id = %s"
             cursor.execute(query, (student_id,))
-            course = cursor.fetchone()
+            student = cursor.fetchone()
             cursor.close()
-            return course
+            return student
         except Exception as e:
             print(f"Error fetching course: {e}")
             return None
@@ -1004,3 +1004,20 @@ class UserDAO:
         except Exception as e:
             print(f"Error during enrollment: {e}")
             return False
+        
+    # Student: View Participation Activity Points
+    def view_student_participation_activity_points_by_course(self, student_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT *
+                FROM Student_Overall_Score
+                WHERE student_id = %s;
+            """
+            cursor.execute(query, (student_id,))
+            students = cursor.fetchall()
+            cursor.close()
+            return students
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
