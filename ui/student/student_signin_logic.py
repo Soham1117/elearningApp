@@ -13,6 +13,8 @@ class StudentSigninLogic(QtWidgets.QWidget):
 
         self.db_connection = get_db_connection()
         self.user_dao = UserDAO(self.db_connection)
+        self.ui.lineEdit.setText("ArMo1024")
+        self.ui.lineEdit_2.setText("jwocals")
 
         self.ui.pushButton_6.clicked.connect(self.handle_login)
         self.ui.pushButton_5.clicked.connect(self.handle_back)

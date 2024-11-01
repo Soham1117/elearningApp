@@ -2,9 +2,7 @@ from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
 from ui.admin.admin_addNewContentBlock_window import Ui_AdminAddNewContentBlockWindow
-from ui.admin.admin_addText_logic import AdminAddTextLogic
-from ui.admin.admin_addPicture_logic import AdminAddPictureLogic
-from ui.admin.admin_addActivity_logic import AdminAddActivityLogic
+from ui.faculty.faculty_addActivity_logic import FacultyAddActivityLogic
 from ui.faculty.faculty_add_block_image_window_logic import FacultyAddPictureLogic
 from ui.faculty.faculty_add_block_text_window_logic import FacultyAddTextLogic
 from ui.faculty.faculty_add_new_content_block_window import Ui_FacultyAddContentBlockWindow
@@ -55,7 +53,7 @@ class FacultyAddNewContentBlockLogic(QtWidgets.QWidget):
         if block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return
-        self.ui_admin_add_new_activity = AdminAddActivityLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id, self.admin_landing_window])
+        self.ui_admin_add_new_activity = FacultyAddActivityLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id])
         self.ui_admin_add_new_activity.show()
         self.close()  
     

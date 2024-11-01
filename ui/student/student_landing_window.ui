@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>50</y>
+     <y>20</y>
      <width>401</width>
      <height>38</height>
     </rect>
@@ -35,11 +35,11 @@
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>370</y>
+     <y>420</y>
      <width>537</width>
      <height>44</height>
     </rect>
@@ -136,6 +136,16 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QTreeView" name="treeView">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>71</y>
+     <width>651</width>
+     <height>331</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

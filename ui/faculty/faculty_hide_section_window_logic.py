@@ -21,7 +21,6 @@ class FacultyHideSectionLogic(QtWidgets.QWidget):
         self.user_dao = UserDAO(self.db_connection)
 
         self.ui.pushButton_6.clicked.connect(self.handle_hide_section)
-        
         self.ui.pushButton_7.clicked.connect(self.handle_back)
         
     def handle_back(self):    
@@ -29,7 +28,7 @@ class FacultyHideSectionLogic(QtWidgets.QWidget):
         self.close()
 
     def handle_hide_section(self):
-        response,error=self.user_dao.hide_section(self.textbook_id,self.chapter_id,self.section_id)
+        response,error=self.user_dao.hide_section(self.textbook_id, self.chapter_id, self.section_id)
         print(response,error)
         if response:
            QtWidgets.QMessageBox.information(self,'Information','Section hidden status updated successfully!!') 

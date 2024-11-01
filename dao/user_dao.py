@@ -1055,3 +1055,65 @@ class UserDAO:
         
         finally:
             cursor.close()
+
+    def gettreeviewdata(self, student_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT course_id FROM Student_Enrolls_Course WHERE student_id = %s AND status = 'Enrolled'"
+            cursor.execute(query, (student_id,))
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+    
+    def getTextbookDetails(self, course_id):
+        try:
+            cursor = self.db_connection.cursor()
+            # Query to fetch textbook detaails from course id using join between course and textbook table
+            query = "SELECT textbook_id, title FROM Textbook WHERE textbook_id IN (SELECT textbook_id FROM Course WHERE course_id = %s)"
+            cursor.execute(query, (course_id,))
+            course = cursor.fetchall()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching textbook: {e}")
+            return None
+    
+    def getChapterDetails(self, textbook_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT chapter_id, title FROM Chapter WHERE textbook_id = %s AND hidden = 'no'"
+            cursor.execute(query, (textbook_id,))
+            chapter = cursor.fetchall()
+            cursor.close()
+            return chapter
+        except Exception as e:
+            print(f"Error fetching chapter: {e}")
+            return None
+        
+    def getSectionDetails(self, textbook_id, chapter_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT section_id, title FROM Section WHERE chapter_id = %s AND textbook_id = %s AND hidden = 'no'"
+            cursor.execute(query, (chapter_id, textbook_id))
+            section = cursor.fetchall()
+            cursor.close()
+            return section
+        except Exception as e:
+            print(f"Error fetching section: {e}")
+            return None
+    
+    def getBlockDetails(self, textbook_id, chapter_id, section_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT block_id FROM Blocks WHERE chapter_id = %s AND textbook_id = %s AND section_id = %s AND hidden = 'no'"
+            cursor.execute(query, (chapter_id, textbook_id, section_id))
+            block = cursor.fetchall()
+            cursor.close()
+            return block
+        except Exception as e:
+            print(f"Error fetching block: {e}")
+            return None     
+    
