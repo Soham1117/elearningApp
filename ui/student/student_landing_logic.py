@@ -2,7 +2,7 @@ from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
 from ui.student.student_landing_window import Ui_StudentLandingWindow
-# from ui.student.student_viewSection_logic import StudentViewSectionLogic
+from ui.student.student_viewSection_logic import StudentViewSectionLogic
 from ui.student.student_viewParticipationActivityPoint_logic import StudentViewParticipationActivityPointLogic
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 
@@ -14,9 +14,16 @@ class StudentLandingLogic(QtWidgets.QWidget):
         self.previous_window = args[0]
         self.student_id = args[1]
 
+        # self.ui.pushButton.clicked.connect(self.view_section)
+
+        self.ui.pushButton.clicked.connect(self.view_section)
         self.ui.pushButton_2.clicked.connect(self.view_participation_activity_points)
         self.ui.pushButton_5.clicked.connect(self.handle_back)
                 
+    # def view_section(self):
+    #     self.ui_go_to_active_course = StudentViewSectionLogic([self, self.student_id])
+    #     self.ui_go_to_active_course.show()
+    #     self.close()
         self.db_connection = get_db_connection()    
         self.user_dao = UserDAO(self.db_connection)
         
@@ -73,6 +80,13 @@ class StudentLandingLogic(QtWidgets.QWidget):
                                     block_item = QStandardItem(f"{block_counter} {block_title}")  # Start block numbering from 1
                                     section_item.appendRow(block_item)
                                     block_counter += 1
+    
+                                    
+    def view_section(self):
+        self.ui_go_to_active_course = StudentViewSectionLogic([self, self.student_id])
+        self.ui_go_to_active_course.show()
+        self.close()
+    
     def view_participation_activity_points(self):
         self.ui_go_to_evaluation_course = StudentViewParticipationActivityPointLogic([self, self.student_id])
         self.ui_go_to_evaluation_course.show()

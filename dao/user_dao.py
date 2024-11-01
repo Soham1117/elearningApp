@@ -1117,3 +1117,105 @@ class UserDAO:
             print(f"Error fetching block: {e}")
             return None     
     
+        
+    def get_blocks(self, textbook_id, chapter_id, section_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT *
+                FROM Blocks
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND hidden = 'no';
+            """
+            cursor.execute(query, (textbook_id, chapter_id, section_id))
+            blocks = cursor.fetchall()
+            cursor.close()
+            return blocks
+        except Exception as e:
+            print(f"Error fetching blocks: {e}")
+            return None   
+
+    def get_questions(self, textbook_id, chapter_id, section_id, block_id):
+        try:    
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT *    
+                FROM Question
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND unique_activity_id = %s;
+            """
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))
+            question = cursor.fetchall()
+            cursor.close()
+            return question
+        except Exception as e:  
+            print(f"Error fetching question: {e}")
+            return None 
+        
+    # Student Scoring Functions
+    def check_question_score_entry(self, student_id, question):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT *
+                FROM Student_Activity_Points
+                WHERE student_id = %s AND textbook_id = %s AND chapter_id = %s AND section_id =%s AND block_id = %s AND unique_activity_id = %s AND question_id = %s;
+            """
+            cursor.execute(query, (student_id, question[0], question[1], question[2], question[3], question[4], question[5],))            
+            result = cursor.fetchall()
+            cursor.close()            
+            if result:
+                return True 
+            else:
+                return False    
+        except Exception as e:
+            print(f"Error fetching question: {e}")
+            return False
+        
+    def insert_question_score_entry(self, student_id, course_id, question, score):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                INSERT INTO Student_Activity_Points (
+                student_id, course_id, textbook_id, chapter_id, section_id, block_id, unique_activity_id, question_id, points) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+            """
+            cursor.execute(query, (student_id, course_id, question[0], question[1], question[2], question[3], question[4], question[5], score))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error inserting question: {e}")
+            return False
+        
+    def update_question_score_entry(self, student_id, question, score):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                UPDATE Student_Activity_Points
+                SET points = %s
+                WHERE student_id = %s AND textbook_id = %s AND chapter_id = %s AND section_id =%s AND block_id = %s AND unique_activity_id = %s AND question_id = %s;
+            """
+            cursor.execute(query, (score, student_id, question[0], question[1], question[2], question[3], question[4], question[5],))
+            self.db_connection.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error updating question: {e}")
+            return False
+        
+    def get_course_id_from_textbook_id(self, textbook_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT course_id
+                FROM Course
+                WHERE textbook_id = %s AND course_type = 'Active';
+            """
+            cursor.execute(query, (textbook_id,))
+            course = cursor.fetchall()
+            cursor.close()
+            return course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return None
+        
+        

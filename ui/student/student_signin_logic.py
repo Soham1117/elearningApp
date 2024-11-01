@@ -16,6 +16,9 @@ class StudentSigninLogic(QtWidgets.QWidget):
         self.ui.lineEdit.setText("ArMo1024")
         self.ui.lineEdit_2.setText("jwocals")
 
+        self.ui.lineEdit.setText("ErPe1024")
+        self.ui.lineEdit_2.setText("qwdmq")
+
         self.ui.pushButton_6.clicked.connect(self.handle_login)
         self.ui.pushButton_5.clicked.connect(self.handle_back)
 
