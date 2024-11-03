@@ -35,7 +35,7 @@ class MainWindowLogic(QtWidgets.QWidget):
         self.ui_admin.show()
         self.close()
     def open_faculty_dashboard(self):
-        self.ui_admin_add_new_text = FacultyModifyChapterLogic([self])
+        self.ui_admin_add_new_text = FacultyLoginLogic(self)
         self.ui_admin_add_new_text.show()
         self.close()
 

@@ -54,14 +54,14 @@ class FacultyGoToActiveCourseLogic(QtWidgets.QWidget):
     def add_new_chapter(self):
         course_id = self.ui.lineEdit_3.text()
 
-        self.faculty_addNewChapter_logic = FacultyAddNewChapterLogic([self, self.faculty_id])
+        self.faculty_addNewChapter_logic = FacultyAddNewChapterLogic([self, self.faculty_id, course_id])
         self.faculty_addNewChapter_logic.show()
         self.close()
 
     def modify_chapters(self):
         course_id = self.ui.lineEdit_3.text()
 
-        self.faculty_modifyChapters_logic = FacultyModifyChapterLogic([self, self.faculty_id])
+        self.faculty_modifyChapters_logic = FacultyModifyChapterLogic([self, self.faculty_id, course_id])
         self.faculty_modifyChapters_logic.show()
         self.close()
 
