@@ -10,6 +10,8 @@ class FacultyAddNewChapterLogic(QtWidgets.QWidget):
         self.ui = Ui_FacultyAddNewChapterWindow()
         self.ui.setupUi(self)
         self.previous_window = args[0]
+        self.faculty_id=args[1]
+        self.course_id=args[2]
         self.ui.lineEdit_5.setText("chap01")
         
         self.db_connection = get_db_connection()    
@@ -48,8 +50,7 @@ class FacultyAddNewChapterLogic(QtWidgets.QWidget):
 
 
     def get_textbook_id_from_course_id(self):
-        course_id=self.ui.lineEdit_7.text()
-        response,id=self.user_dao.get_textbook_id_from_course_id(course_id)
+        response,id=self.user_dao.get_textbook_id_from_course_id(self.course_id)
         print(response,id)
         if response:
             return id

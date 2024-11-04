@@ -32,7 +32,7 @@ class Ui_FacultyAddNewChapterWindow(object):
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.verticalLayout.addWidget(self.label_8)
-        self.lineEdit_7 = QtWidgets.QLineEdit(parent=self.widget)
+        """ self.lineEdit_7 = QtWidgets.QLineEdit(parent=self.widget)
         self.lineEdit_7.setStyleSheet("QLineEdit {\n"
 "        background-color: #2b2b2b;  /* Dark background */\n"
 "        color: #fcba03;  /* Text color */\n"
@@ -52,9 +52,9 @@ class Ui_FacultyAddNewChapterWindow(object):
 "        background-color: #1a1a1a;  /* Background when focused */\n"
 "        border: 2px solid #fcba03;  /* Border color when focused */\n"
 "        color: #ffffff;  /* Text color when focused */\n"
-"    }")
-        self.lineEdit_7.setObjectName("lineEdit_7")
-        self.verticalLayout.addWidget(self.lineEdit_7)
+"    }") """
+        """ self.lineEdit_7.setObjectName("lineEdit_7")
+        self.verticalLayout.addWidget(self.lineEdit_7) """
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
@@ -181,7 +181,6 @@ class Ui_FacultyAddNewChapterWindow(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "Add New Chapter"))
-        self.label_8.setText(_translate("Form", "Course ID:"))
         self.label_6.setText(_translate("Form", "Unique Chapter ID:"))
         self.label_7.setText(_translate("Form", "Chapter Title:"))
         self.pushButton_back_2.setText(_translate("Form", "Back"))

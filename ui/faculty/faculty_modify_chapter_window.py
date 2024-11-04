@@ -184,7 +184,7 @@ class Ui_FacultyModifyChapterWindow(object):
 "    }")
         self.pushButton_back.setObjectName("pushButton_back")
         self.verticalLayout_2.addWidget(self.pushButton_back)
-        self.lineEdit_4 = QtWidgets.QLineEdit(parent=Form)
+        """ self.lineEdit_4 = QtWidgets.QLineEdit(parent=Form)
         self.lineEdit_4.setGeometry(QtCore.QRect(330, 120, 177, 43))
         self.lineEdit_4.setStyleSheet("QLineEdit {\n"
 "        background-color: #2b2b2b;  /* Dark background */\n"
@@ -206,7 +206,7 @@ class Ui_FacultyModifyChapterWindow(object):
 "        border: 2px solid #fcba03;  /* Border color when focused */\n"
 "        color: #ffffff;  /* Text color when focused */\n"
 "    }")
-        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.lineEdit_4.setObjectName("lineEdit_4") """
         self.label_5 = QtWidgets.QLabel(parent=Form)
         self.label_5.setGeometry(QtCore.QRect(160, 120, 160, 43))
         font = QtGui.QFont()
@@ -227,4 +227,4 @@ class Ui_FacultyModifyChapterWindow(object):
         self.pushButton_3.setText(_translate("Form", "Hide Chapter"))
         self.delete_chapter.setText(_translate("Form", "Delete Chapter"))
         self.pushButton_back.setText(_translate("Form", "Back"))
-        self.label_5.setText(_translate("Form", "Course ID:"))
+        

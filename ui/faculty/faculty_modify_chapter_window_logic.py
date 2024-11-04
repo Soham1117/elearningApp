@@ -16,6 +16,8 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
         self.ui = Ui_FacultyModifyChapterWindow()
         self.ui.setupUi(self)
         self.previous_window = args[0]
+        self.faculty_id=args[1]
+        self.course_id=args[2]
         self.ui.lineEdit_3.setText("chap01")
         
         self.db_connection = get_db_connection()    
@@ -96,9 +98,9 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID or TextBook ID does not exist.")    
 
     def get_textbook_id_from_course_id(self):
-        course_id=self.ui.lineEdit_4.text()
-        response,id=self.user_dao.get_textbook_id_from_course_id(course_id)
-        print(response,id)
+        
+        response,id=self.user_dao.get_textbook_id_from_course_id(self.course_id)
+        
         if response:
             return id
         else:
