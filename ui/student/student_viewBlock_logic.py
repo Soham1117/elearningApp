@@ -140,4 +140,3 @@ class StudentViewBlockLogic(QtWidgets.QWidget):
     def handle_back(self):
         self.previous_window.show()
         self.close()
-

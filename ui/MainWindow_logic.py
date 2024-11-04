@@ -2,11 +2,11 @@ import sys
 from PySide6 import QtWidgets
 from ui.MainWindow_window import Ui_MainWindow
 from ui.admin.admin_login_logic import AdminLoginLogic
-from ui.faculty.faculty_add_new_chapter_window_logic import FacultyAddNewChapterLogic
 from ui.faculty.faculty_login_logic import FacultyLoginLogic
 from ui.faculty.faculty_modify_chapter_window_logic import FacultyModifyChapterLogic
 from ui.ta.ta_login_logic import TALoginLogic
 from ui.student.student_login_logic import StudentLoginLogic
+from ui.queries_logic import QueriesLogic
 
 class MainWindowLogic(QtWidgets.QWidget):
     def __init__(self):
@@ -16,6 +16,7 @@ class MainWindowLogic(QtWidgets.QWidget):
 
         self.ui.pushButton_6.clicked.connect(self.handle_login)
         self.ui.pushButton_5.clicked.connect(self.handle_exit)
+        self.ui.pushButton.clicked.connect(self.handle_queries)
 
     def handle_login(self):
         # Get the role from the ComboBox
@@ -34,6 +35,7 @@ class MainWindowLogic(QtWidgets.QWidget):
         self.ui_admin = AdminLoginLogic(self)
         self.ui_admin.show()
         self.close()
+        
     def open_faculty_dashboard(self):
         self.ui_admin_add_new_text = FacultyModifyChapterLogic([self])
         self.ui_admin_add_new_text.show()
@@ -50,4 +52,9 @@ class MainWindowLogic(QtWidgets.QWidget):
 
     def handle_exit(self):
         sys.exit(0)
+        
+    def handle_queries(self):
+        self.queries_window = QueriesLogic(self)      
+        self.queries_window.show()
+        self.close()
 

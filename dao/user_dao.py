@@ -1218,4 +1218,190 @@ class UserDAO:
             print(f"Error fetching course: {e}")
             return None
         
+    def excute_query_1(self, textbook_id):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT 
+                    t.textbook_id,
+                    t.title as textbook_title,
+                    c.chapter_id,
+                    c.title as chapter_title,
+                    COUNT(s.section_id) as number_of_sections
+                FROM Textbook t
+                JOIN Chapter c ON t.textbook_id = c.textbook_id
+                LEFT JOIN Section s ON c.textbook_id = s.textbook_id AND c.chapter_id = s.chapter_id
+                WHERE c.chapter_id = 'chap01' AND t.textbook_id = %s
+                GROUP BY t.textbook_id, t.title, c.chapter_id, c.title;
+            """
+            cursor.execute(query, (textbook_id,))
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error fetching course: {e}")
+            return False, e
+    
+    def excute_query_2(self):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT 
+                    c.course_id,
+                    c.course_name,
+                    CONCAT(f.first_name, ' ', f.last_name) AS name,
+                    'Faculty' AS role
+                FROM Course c
+                JOIN Faculty f ON c.faculty_id = f.faculty_id
+                UNION
+                SELECT 
+                    c.course_id,
+                    c.course_name,
+                    CONCAT(t.first_name, ' ', t.last_name) AS name,
+                    'TA' AS role
+                FROM Course c
+                JOIN TA t ON c.course_id = t.course_id
+                ORDER BY course_id, role;
+            """
+            cursor.execute(query)
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error executing query 2: {e}")
+            return False, e
+    
+    def excute_query_3(self):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT c.course_id,f.first_name, f.last_name, COUNT(s.student_id) as total from 
+                course c INNER JOIN faculty f on c.faculty_id=f.faculty_id
+                INNER JOIN student_enrolls_course s on s.course_id=c.course_id
+                GROUP BY c.course_id,f.first_name;
+                """
+            cursor.execute(query)
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error executing query 3: {e}")
+            return False, e
+    
+    def excute_query_4(self):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT course_id, COUNT(*) AS total_waitlist
+                FROM student_enrolls_course 
+                WHERE status = 'Pending'
+                GROUP BY course_id
+                ORDER BY total_waitlist DESC
+                LIMIT 1;
+                """
+            cursor.execute(query)
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error executing query 4: {e}")
+            return False, e
         
+    def excute_query_5(self):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT 
+                    tb.title AS textbook_title,
+                    ch.title AS chapter_title,
+                    ch.chapter_id,
+                    sec.title AS section_title,
+                    sec.section_id,
+                    blk.content AS block_content,
+                    blk.block_id,
+                    blk.type_of_block
+                FROM 
+                    Textbook tb
+                JOIN 
+                    Chapter ch ON tb.textbook_id = ch.textbook_id
+                JOIN 
+                    Section sec ON ch.chapter_id = sec.chapter_id AND ch.textbook_id = sec.textbook_id
+                JOIN 
+                    Blocks blk ON sec.section_id = blk.section_id 
+                            AND sec.chapter_id = blk.chapter_id 
+                            AND sec.textbook_id = blk.textbook_id
+                WHERE 
+                    ch.chapter_id = 'chap02' AND tb.textbook_id = 101
+                ORDER BY 
+                    sec.section_id, blk.block_id;
+                """
+            cursor.execute(query)
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error executing query 5: {e}")
+            return False, e
+        
+    def excute_query_6(self):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                WITH all_options AS (
+                SELECT question_id, unique_activity_id, answer,
+                    1 as option_number, option_1 as option_text, explanation_1 as explanation 
+                FROM Question 
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                UNION ALL
+                SELECT question_id, unique_activity_id, answer,
+                    2, option_2, explanation_2 
+                FROM Question 
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                UNION ALL
+                SELECT question_id, unique_activity_id, answer,
+                    3, option_3, explanation_3 
+                FROM Question 
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                UNION ALL
+                SELECT question_id, unique_activity_id, answer,
+                    4, option_4, explanation_4 
+                FROM Question 
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                )
+                SELECT 
+                    CONCAT('Option ', option_number) as option_number,
+                    option_text,
+                    explanation
+                FROM all_options
+                WHERE option_number != answer;
+
+                """
+            cursor.execute(query)
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error executing query 6: {e}")
+            return False, e
+        
+    def excute_query_7(self):
+        try:
+            cursor = self.db_connection.cursor()
+            query = """
+                SELECT DISTINCT t.textbook_id, t.title, 
+                    a.faculty_id as active_faculty,
+                    e.faculty_id as evaluation_faculty
+                FROM course a
+                JOIN course e ON a.textbook_id = e.textbook_id
+                JOIN textbook t ON a.textbook_id = t.textbook_id
+                WHERE a.course_type = 'Active'
+                AND e.course_type = 'Evaluation'
+                AND a.faculty_id != e.faculty_id;
+                """
+            cursor.execute(query)
+            course = cursor.fetchall()
+            cursor.close()
+            return True, course
+        except Exception as e:
+            print(f"Error executing query 7: {e}")
+            return False, e
