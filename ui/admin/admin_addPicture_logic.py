@@ -31,8 +31,8 @@ class AdminAddPictureLogic(QtWidgets.QWidget):
         if not content:
             QtWidgets.QMessageBox.warning(self, "Warning", "Content is required.")
             return
-             
-        response, error = self.user_dao.add_new_picture(self.textbook_id, self.chapter_id, self.section_id, self.block_id, content)
+        created_by = "admin"
+        response, error = self.user_dao.add_new_picture(self.textbook_id, self.chapter_id, self.section_id, self.block_id, content, created_by)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Picture added successfully.")
             self.previous_window.show()

@@ -37,7 +37,8 @@ class AdminAddNewChapterLogic(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
         
-        response, error = self.user_dao.add_new_chapter(self.textbook_id, chapter_id, chapter_title)
+        created_by = "admin"
+        response, error = self.user_dao.add_new_chapter(self.textbook_id, chapter_id, chapter_title, created_by)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Chapter added successfully.")
             self.ui_admin_add_new_section = AdminAddNewSectionLogic([self, self.textbook_id, chapter_id, self.admin_landing_window])

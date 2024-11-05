@@ -29,6 +29,7 @@ class AdminAddActivityLogic(QtWidgets.QWidget):
 
     def handle_add_new_activity(self):
         unique_activity_id = self.ui.lineEdit_3.text()   
+        created_by = "admin"
         if not unique_activity_id:
             QtWidgets.QMessageBox.warning(self, "Warning", "Activity ID is required.")
             return
@@ -36,9 +37,9 @@ class AdminAddActivityLogic(QtWidgets.QWidget):
         if unique_activity_id[:3] != "ACT":
             QtWidgets.QMessageBox.warning(self, "Warning", "Activity ID should start with 'ACT'.")
             return
-        response, error = self.user_dao.add_activityBlock(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id)
+        response, error = self.user_dao.add_activityBlock(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id, created_by)
         if response:
-            response_2, error_2 = self.user_dao.add_activity(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id)    
+            response_2, error_2 = self.user_dao.add_activity(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id, created_by)
             if response_2:
                 QtWidgets.QMessageBox.information(self, "Message", "Activity added successfully.")
                 self.ui_admin_add_new_question = AdminAddQuestionLogic([self, self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id, self.admin_landing_window])

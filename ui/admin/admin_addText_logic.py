@@ -31,8 +31,8 @@ class AdminAddTextLogic(QtWidgets.QWidget):
         if not text:
             QtWidgets.QMessageBox.warning(self, "Warning", "Text is required.")
             return
-        
-        response, error = self.user_dao.add_new_text(self.textbook_id, self.chapter_id, self.section_id, self.block_id, text)
+        created_by = "admin"
+        response, error = self.user_dao.add_new_text(self.textbook_id, self.chapter_id, self.section_id, self.block_id, text, created_by)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Text added successfully.")
             self.previous_window.show()
