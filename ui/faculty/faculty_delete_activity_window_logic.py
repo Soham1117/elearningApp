@@ -35,7 +35,7 @@ class FacultyDeleteActivityLogic(QtWidgets.QWidget):
             return
         
         if response:
-           QtWidgets.QMessageBox.information(self,'Information','Section Deleted successfully!!') 
+           QtWidgets.QMessageBox.information(self,'Information','Activity Deleted successfully!!') 
         else:
             QtWidgets.QMessageBox.warning(self, "Warning", str(error))    
 
