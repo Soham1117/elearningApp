@@ -434,7 +434,7 @@ class UserDAO:
             created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             query = "INSERT INTO Chapter (textbook_id, chapter_id, title, created_at, updated_at, created_by) VALUES (%s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, chapter_title, created_at, updated_at))
+            cursor.execute(query, (textbook_id, chapter_id, chapter_title, created_at, updated_at, created_by))
             self.db_connection.commit()
             cursor.close()
             return True, "Textbook added successfully"
@@ -457,14 +457,14 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 	    
-    def add_new_section(self, textbook_id, chapter_id, section_id, section_title):
+    def add_new_section(self, textbook_id, chapter_id, section_id, section_title, created_by):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
             created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
-            query = "INSERT INTO Section (textbook_id, chapter_id, section_id, title, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, section_id, section_title, created_at, updated_at))
+            query = "INSERT INTO Section (textbook_id, chapter_id, section_id, title, created_at, updated_at, created_by) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, section_title, created_at, updated_at, created_by))
             self.db_connection.commit()
             cursor.close()
             return True, "Textbook added successfully"
@@ -472,7 +472,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
     
-    def add_new_text(self, textbook_id, chapter_id, section_id, block_id, text, created_by):
+    def add_new_text(self, textbook_id, chapter_id, section_id, block_id, text):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -480,8 +480,8 @@ class UserDAO:
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             type_of_block = "text"
             hidden = "no"
-            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at, created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, text, hidden, created_at, updated_at, created_by))
+            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, text, hidden, created_at, updated_at))
             self.db_connection.commit()
             cursor.close()
             return True, "Text added successfully"
@@ -489,7 +489,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 
-    def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content, created_by):
+    def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -497,8 +497,8 @@ class UserDAO:
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             type_of_block = "picture"
             hidden = "no"
-            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at, created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at, created_by))
+            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at))
             self.db_connection.commit()
             cursor.close()
             return True, "Text added successfully"
@@ -538,7 +538,7 @@ class UserDAO:
             created_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             hidden = "no"
-            query = "INSERT INTO Activity (textbook_id, chapter_id, section_id, block_id, unique_activity_id, hidden, created_at, updated_at, created_by        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query = "INSERT INTO Activity (textbook_id, chapter_id, section_id, block_id, unique_activity_id, hidden, created_at, updated_at, created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
             cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, unique_activity_id, hidden, created_at, updated_at, created_by))
             self.db_connection.commit()
             cursor.close()
