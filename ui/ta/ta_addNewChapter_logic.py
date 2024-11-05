@@ -12,7 +12,7 @@ class TAAddNewChapterLogic(QtWidgets.QWidget):
         self.previous_window = args[0]
         self.course_id = args[1]
         self.ui.lineEdit_3.setText("chap01")
-        
+        self.ui.lineEdit_4.setText("Chapter Title")
         self.db_connection = get_db_connection()    
         self.user_dao = UserDAO(self.db_connection)
 

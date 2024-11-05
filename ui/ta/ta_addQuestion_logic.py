@@ -15,6 +15,15 @@ class TAAddQuestionLogic(QtWidgets.QWidget):
         self.block_id = args[4]
         self.unique_activity_id = args[5]
         self.ui.lineEdit_3.setText("Q1")
+        self.ui.lineEdit_4.setText("Question Text")
+        self.ui.lineEdit_6.setText("Option 1")
+        self.ui.lineEdit_5.setText("Option 1 Explanation")
+        self.ui.lineEdit_8.setText("Option 2")
+        self.ui.lineEdit_9.setText("Option 2 Explanation")
+        self.ui.lineEdit_14.setText("Option 3")
+        self.ui.lineEdit_10.setText("Option 3 Explanation")
+        self.ui.lineEdit_12.setText("Option 4")
+        self.ui.lineEdit_13.setText("Option 4 Explanation")
         
         self.db_connection = get_db_connection()    
         self.user_dao = UserDAO(self.db_connection)

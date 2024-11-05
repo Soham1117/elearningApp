@@ -13,7 +13,7 @@ class TAAddPictureLogic(QtWidgets.QWidget):
         self.chapter_id = args[2]
         self.section_id = args[3]
         self.block_id = args[4]
-        
+        self.ui.lineEdit_3.setText("Add Picture Here")
         self.db_connection = get_db_connection()    
         self.user_dao = UserDAO(self.db_connection)
 

@@ -13,6 +13,7 @@ class TAAddNewSectionLogic(QtWidgets.QWidget):
         self.textbook_id = args[1]
         self.chapter_id = args[2]
         self.ui.lineEdit_3.setText("Sec01")
+        self.ui.lineEdit_4.setText("Section Title")
         self.db_connection = get_db_connection()    
         self.user_dao = UserDAO(self.db_connection)
 
