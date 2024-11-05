@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>496</height>
+    <width>720</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>6</x>
+     <x>60</x>
      <y>30</y>
-     <width>921</width>
-     <height>284</height>
+     <width>591</width>
+     <height>291</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -40,7 +40,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label_6">
         <property name="font">
@@ -79,10 +79,6 @@
         </property>
        </widget>
       </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label_7">
         <property name="font">
@@ -124,7 +120,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label_5">
         <property name="font">
@@ -163,10 +159,6 @@
         </property>
        </widget>
       </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QLabel" name="label_4">
         <property name="font">
@@ -269,36 +261,10 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-        background-color: #2b2b2b;  
-        color: #fcba03;              
-        border: 2px solid #3d3d3d;      
-        border-radius: 8px;          
-        padding: 8px 16px;            
-        font-size: 16px;            
-        font-weight: bold;
-    
-    }
-
-    QPushButton:hover {
-        background-color: #fcba03;
-		 color: #000000;
-        border: 2px solid #5a5a5a;    
-    }
-
-    QPushButton:pressed {
-        background-color: #1a1a1a;      
-        border: 2px solid #2b2b2b;      
-    }</string>
-        </property>
-        <property name="text">
-         <string>Delete Content Block</string>
-        </property>
-       </widget>
-      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="pushButton_4">
         <property name="styleSheet">
@@ -330,7 +296,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_back">
+       <widget class="QPushButton" name="pushButton_3">
         <property name="styleSheet">
          <string notr="true">QPushButton {
         background-color: #2b2b2b;  
@@ -355,11 +321,41 @@
     }</string>
         </property>
         <property name="text">
-         <string>Back</string>
+         <string>Delete Content Block</string>
         </property>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_back">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
