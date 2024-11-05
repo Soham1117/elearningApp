@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1080</width>
-    <height>720</height>
+    <width>720</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>40</y>
+     <x>267</x>
+     <y>32</y>
      <width>181</width>
      <height>30</height>
     </rect>
@@ -32,135 +32,13 @@
     <string>Add Question</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_back">
-   <property name="geometry">
-    <rect>
-     <x>316</x>
-     <y>670</y>
-     <width>151</width>
-     <height>42</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton {
-        background-color: #2b2b2b;  
-        color: #fcba03;              
-        border: 2px solid #3d3d3d;      
-        border-radius: 8px;          
-        padding: 8px 16px;            
-        font-size: 16px;            
-        font-weight: bold;
-    
-    }
-
-    QPushButton:hover {
-        background-color: #fcba03;
-		 color: #000000;
-        border: 2px solid #5a5a5a;    
-    }
-
-    QPushButton:pressed {
-        background-color: #1a1a1a;      
-        border: 2px solid #2b2b2b;      
-    }</string>
-   </property>
-   <property name="text">
-    <string>Back</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>630</x>
-     <y>670</y>
-     <width>151</width>
-     <height>42</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton {
-        background-color: #2b2b2b;  
-        color: #fcba03;              
-        border: 2px solid #3d3d3d;      
-        border-radius: 8px;          
-        padding: 8px 16px;            
-        font-size: 16px;            
-        font-weight: bold;
-    
-    }
-
-    QPushButton:hover {
-        background-color: #fcba03;
-		 color: #000000;
-        border: 2px solid #5a5a5a;    
-    }
-
-    QPushButton:pressed {
-        background-color: #1a1a1a;      
-        border: 2px solid #2b2b2b;      
-    }</string>
-   </property>
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>407</x>
-     <y>530</y>
-     <width>251</width>
-     <height>45</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_16">
-    <item>
-     <widget class="QLabel" name="label_18">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Answer:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_17">
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {
-        background-color: #2b2b2b;  /* Dark background */
-        color: #fcba03;  /* Text color */
-        border: 2px solid #3d3d3d;  /* Border color */
-        border-radius: 8px;  /* Rounded corners */
-        padding: 8px;  /* Padding inside the input field */
-        font-size: 16px;  /* Font size */
-        font-weight: bold;  /* Bold font */
-    }
-
-    QLineEdit:hover {
-        background-color: #3d3d3d;  /* Background when hovered */
-        border: 2px solid #fcba03;  /* Border color when hovered */
-    }
-
-    QLineEdit:focus {
-        background-color: #1a1a1a;  /* Background when focused */
-        border: 2px solid #fcba03;  /* Border color when focused */
-        color: #ffffff;  /* Text color when focused */
-    }</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>61</x>
+     <x>30</x>
      <y>101</y>
-     <width>951</width>
-     <height>411</height>
+     <width>661</width>
+     <height>261</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -589,6 +467,124 @@
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>152</x>
+     <y>391</y>
+     <width>410</width>
+     <height>47</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_13">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_16">
+      <item>
+       <widget class="QLabel" name="label_18">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Answer:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_17">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+        background-color: #2b2b2b;  /* Dark background */
+        color: #fcba03;  /* Text color */
+        border: 2px solid #3d3d3d;  /* Border color */
+        border-radius: 8px;  /* Rounded corners */
+        padding: 8px;  /* Padding inside the input field */
+        font-size: 16px;  /* Font size */
+        font-weight: bold;  /* Bold font */
+    }
+
+    QLineEdit:hover {
+        background-color: #3d3d3d;  /* Background when hovered */
+        border: 2px solid #fcba03;  /* Border color when hovered */
+    }
+
+    QLineEdit:focus {
+        background-color: #1a1a1a;  /* Background when focused */
+        border: 2px solid #fcba03;  /* Border color when focused */
+        color: #ffffff;  /* Text color when focused */
+    }</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QPushButton" name="pushButton_back">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

@@ -16,9 +16,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>29</y>
-     <width>541</width>
+     <x>312</x>
+     <y>30</y>
+     <width>100</width>
      <height>41</height>
     </rect>
    </property>
@@ -38,7 +38,7 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>157</x>
      <y>93</y>
      <width>411</width>
      <height>92</height>
@@ -53,7 +53,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Add TA for-</string>
+       <string>Add TA for:</string>
       </property>
       <property name="wordWrap">
        <bool>false</bool>
@@ -89,10 +89,10 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>162</x>
+     <x>159</x>
      <y>196</y>
      <width>411</width>
      <height>250</height>

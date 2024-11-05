@@ -1,7 +1,6 @@
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
-from ui.admin.admin_addPicture_window import Ui_AdminAddPictureWindow
 from ui.faculty.faculty_add_block_image_window import Ui_FacultyAddPictureWindow
 
 class FacultyAddPictureLogic(QtWidgets.QWidget):

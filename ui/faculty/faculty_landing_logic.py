@@ -1,7 +1,6 @@
 from PySide6 import QtWidgets
 
 from ui.faculty.faculty_landing_window import Ui_FacultyLandingWindow
-
 from ui.faculty.faculty_goToActiveCourse_logic import FacultyGoToActiveCourseLogic
 from ui.faculty.faculty_goToEvaluationCourse_logic import FacultyGoToEvaluationCourseLogic
 from ui.faculty.faculty_viewCourses_logic import FacultyViewCoursesLogic
