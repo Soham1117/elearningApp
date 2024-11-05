@@ -41,4 +41,3 @@ class TAAddActivityLogic(QtWidgets.QWidget):
                 QtWidgets.QMessageBox.warning(self, "Warning", str(error_2))
         else:
             QtWidgets.QMessageBox.warning(self, "Warning", str(error))     
-        self.close()

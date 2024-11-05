@@ -57,7 +57,3 @@ class TAModifyContentBlockLogic(QtWidgets.QWidget):
         self.ui_ta_addNewActivity = TAAddActivityLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id])
         self.ui_ta_addNewActivity.show()
         self.close()  
-    
-    # def handle_ta_landing(self):
-    #     self.ta_landing_window.show()
-    #     self.close()
