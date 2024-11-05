@@ -40,7 +40,7 @@ class FacultyModifyContentBlockLogic(QtWidgets.QWidget):
 
     def handle_delete_activity(self):
         block_id = self.ui.lineEdit_4.text()
-        if block_id[:5] != "Block":
+        if block_id and block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return
         self.ui_faculty_delete_activity = FacultyDeleteActivityLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id])

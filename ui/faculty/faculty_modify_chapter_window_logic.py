@@ -72,7 +72,7 @@ class FacultyModifyChapterLogic(QtWidgets.QWidget):
         textbook_id=self.get_textbook_id_from_course_id()
         if textbook_id is None:
             return
-        if chapter_id[:4] != "chap":
+        if chapter_id and chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
         if self.user_dao.checkChapter(textbook_id, chapter_id):

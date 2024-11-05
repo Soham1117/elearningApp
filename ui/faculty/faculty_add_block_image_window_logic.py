@@ -26,8 +26,12 @@ class FacultyAddPictureLogic(QtWidgets.QWidget):
         self.close()
 
     def handle_add_new_picture(self):
-        content = self.ui.lineEdit_3.text()        
-        response, error = self.user_dao.add_new_picture(self.textbook_id, self.chapter_id, self.section_id, self.block_id, content)
+        content = self.ui.lineEdit_3.text()
+        if content:        
+            response, error = self.user_dao.add_new_picture(self.textbook_id, self.chapter_id, self.section_id, self.block_id, content)
+        else:
+            QtWidgets.QMessageBox.warning(self, "Warning", 'Block Picture cannot be empty')
+            return    
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Picture added successfully.")
             self.previous_window.show()

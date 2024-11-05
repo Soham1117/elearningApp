@@ -699,13 +699,17 @@ class UserDAO:
                     print(hidden,'Hidden value')
                     return True, hidden
                 else:
-                    return False, None 
+                    cursor.close()
+                    return False, "No Section Found"
             except Exception as e:
+                cursor.close()
                 print(f"Error checking section: {e}")
                 return False, e
                 
         try:
             response, hidden_status = check_section_is_hidden(textbook_id, chapter_id, section_id)
+            if not response:
+                return False,hidden_status
             if response and hidden_status == 'yes':
                 new_value = 'no'
             else:
@@ -810,6 +814,7 @@ class UserDAO:
                 cursor.close()
                 return False, "Block not found"
         except Exception as e:
+            cursor.close()
             print(f"Error updating block hidden status: {e}")
             return False, e 
 
@@ -830,13 +835,16 @@ class UserDAO:
                     hidden = chapter[0]  
                     return True, hidden
                 else:
-                    return False, None 
+                    return False, "No chapter Found"
             except Exception as e:
+                cursor.close()
                 print(f"Error checking chapter: {e}")
                 return False, e
                 
         try:
             response, hidden_status = check_chapter_is_hidden(textbook_id, chapter_id)
+            if not response:
+                return False,hidden_status
             if response and hidden_status == 'yes':
                 new_value = 'no'
             else:
@@ -856,6 +864,7 @@ class UserDAO:
             cursor.close()
             return True, "Chapter hidden status updated successfully"
         except Exception as e:
+            cursor.close()
             print(f"Error updating chapter hidden status: {e}")
             return False, e
 
@@ -913,18 +922,20 @@ class UserDAO:
                 
                 activity = cursor.fetchone()
                 cursor.close()
-                
                 if activity:
                     hidden = activity[0]
                     return True, hidden
                 else:
-                    return False, None
+                    return False, "No Activity found"
             except Exception as e:
+                cursor.close()
                 print(f"Error checking activity: {e}")
                 return False, e
                 
         try:
             response, hidden_status = check_activity_is_hidden(textbook_id, chapter_id, section_id, block_id, unique_activity_id)
+            if not response:
+                return False,hidden_status
             if response and hidden_status == 'yes':
                 new_value = 'no'
             else:
@@ -945,6 +956,7 @@ class UserDAO:
             cursor.close()
             return True, "Activity hidden status updated successfully"
         except Exception as e:
+            cursor.close()
             print(f"Error updating activity hidden status: {e}")
             return False, e
         

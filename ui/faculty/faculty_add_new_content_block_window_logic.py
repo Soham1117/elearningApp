@@ -41,7 +41,7 @@ class FacultyAddNewContentBlockLogic(QtWidgets.QWidget):
                 
     def handle_add_new_picture(self):
         block_id = self.ui.lineEdit_3.text()        
-        if block_id[:5] != "Block":
+        if block_id and block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return
         self.ui_admin_add_new_picture = FacultyAddPictureLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id])

@@ -101,7 +101,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Modify Block</string>
+    <string>Delete Block</string>
    </property>
   </widget>
  </widget>

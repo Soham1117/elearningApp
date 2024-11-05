@@ -26,8 +26,13 @@ class FacultyAddTextLogic(QtWidgets.QWidget):
         self.close()
 
     def handle_add_new_text(self):
-        text = self.ui.lineEdit_3.text()        
-        response, error = self.user_dao.add_new_text(self.textbook_id, self.chapter_id, self.section_id, self.block_id, text)
+        text = self.ui.lineEdit_3.text()   
+        if text:
+            response, error = self.user_dao.add_new_text(self.textbook_id, self.chapter_id, self.section_id, self.block_id, text)        
+        else:
+            QtWidgets.QMessageBox.warning(self, "Warning", 'Block Text cannot be empty')
+            return       
+        
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Text added successfully.")
             self.previous_window.show()

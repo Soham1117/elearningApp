@@ -12,7 +12,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 class Ui_FacutyModifySectionWindow(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(720, 793)
+        Form.resize(720, 480)
         self.layoutWidget = QtWidgets.QWidget(parent=Form)
         self.layoutWidget.setGeometry(QtCore.QRect(160, 150, 349, 291))
         self.layoutWidget.setObjectName("layoutWidget")
