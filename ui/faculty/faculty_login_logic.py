@@ -1,8 +1,6 @@
-import sys
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
-from ui.faculty.faculty_add_new_chapter_window_logic import FacultyAddNewChapterLogic
 from ui.faculty.faculty_login_window import Ui_FacultyLoginWindow
 from ui.faculty.faculty_landing_logic import FacultyLandingLogic
 

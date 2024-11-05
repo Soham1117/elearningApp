@@ -35,10 +35,10 @@
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>162</x>
+     <x>159</x>
      <y>215</y>
      <width>411</width>
      <height>97</height>
@@ -153,10 +153,10 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>157</x>
      <y>114</y>
      <width>411</width>
      <height>92</height>
@@ -171,7 +171,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Approving Enrollment for-</string>
+       <string>Approving Enrollment for:</string>
       </property>
       <property name="wordWrap">
        <bool>false</bool>

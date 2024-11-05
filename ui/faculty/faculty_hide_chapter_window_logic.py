@@ -1,13 +1,8 @@
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
-from ui.admin.admin_modifyChapter_window import Ui_AdminModifyChapterWindow
-from ui.admin.admin_addNewSection_logic import AdminAddNewSectionLogic
-from ui.admin.admin_modifySection_logic import AdminModifySectionLogic
 from ui.faculty.faculty_hide_chapter_window import Ui_FacultyHideChapterWindow
-from ui.faculty.faculty_hide_content_block_window import Ui_FacultyHideContentBlockWindow
-from ui.faculty.faculty_hide_section_window import Ui_FacultyHideSectionWindow
-from ui.faculty.faculty_modify_chapter_window import Ui_FacultyModifyChapterWindow
+
 
 class FacultyHideChapterLogic(QtWidgets.QWidget):
     def __init__(self, args):

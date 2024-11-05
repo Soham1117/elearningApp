@@ -1,8 +1,6 @@
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
-from ui.admin.admin_addNewSection_window import Ui_AdminAddNewSectionWindow
-from ui.admin.admin_addNewContentBlock_logic import AdminAddNewContentBlockLogic
 from ui.faculty.faculty_add_new_content_block_window_logic import FacultyAddNewContentBlockLogic
 from ui.faculty.faculty_add_new_section_window import Ui_FacultyAddNewSectionWindow
 

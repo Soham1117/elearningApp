@@ -2,7 +2,6 @@ import sys
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
-
 from ui.faculty.faculty_viewStudents_window import Ui_FacultyViewStudentsWindow
 
 class FacultyViewStudentsLogic(QtWidgets.QWidget):

@@ -1,7 +1,6 @@
 from PySide6 import QtWidgets
 from dao.user_dao import UserDAO
 from db.db_connection import get_db_connection
-from ui.admin.admin_addText_window import Ui_AdminAddTextWindow
 from ui.faculty.faculty_add_block_text_window import Ui_FacultyAddTextWindow
 
 class FacultyAddTextLogic(QtWidgets.QWidget):
