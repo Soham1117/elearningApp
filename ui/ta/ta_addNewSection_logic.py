@@ -30,7 +30,7 @@ class TAAddNewSectionLogic(QtWidgets.QWidget):
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
-        response, error = self.user_dao.add_new_content_block(self.textbook_id, self.chapter_id, section_id, section_title)
+        response, error = self.user_dao.add_new_content_block(self.textbook_id, self.chapter_id, section_id, section_title, "ta")
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Section added successfully.")
             self.ui_admin_add_new_block = TAAddNewContentBlockLogic([self, self.textbook_id, self.chapter_id, section_id])

@@ -53,6 +53,6 @@ class TAAddNewContentBlockLogic(QtWidgets.QWidget):
         if block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return
-        self.ui_admin_add_new_activity = TAAddActivityLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id])
-        self.ui_admin_add_new_activity.show()
+        self.ui_ta_add_new_activity = TAAddActivityLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id])
+        self.ui_ta_add_new_activity.show()
         self.close()  

@@ -64,7 +64,7 @@ class TAAddQuestionLogic(QtWidgets.QWidget):
         qa.append(option4_explanation)
         qa.append(answer)
         
-        response, error = self.user_dao.add_question(self.textbook_id, self.chapter_id, self.section_id, self.block_id, self.unique_activity_id, qa)
+        response, error = self.user_dao.add_question(self.textbook_id, self.chapter_id, self.section_id, self.block_id, self.unique_activity_id, qa, "ta")
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Question added successfully.")
             self.previous_window.show()

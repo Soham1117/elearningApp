@@ -30,7 +30,7 @@ class TAAddNewChapterLogic(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
         textbook_id = self.user_dao.get_textbook_by_course_id(self.course_id)[0]
-        response, error = self.user_dao.add_new_chapter(textbook_id, chapter_id, chapter_title)
+        response, error = self.user_dao.add_new_chapter(textbook_id, chapter_id, chapter_title, "ta")
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Chapter added successfully.")
             self.ui_ta_addNewSection = TAAddNewSectionLogic([self, textbook_id, chapter_id])

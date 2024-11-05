@@ -30,9 +30,9 @@ class TAAddActivityLogic(QtWidgets.QWidget):
         if unique_activity_id[:3] != "ACT":
             QtWidgets.QMessageBox.warning(self, "Warning", "Activity ID should start with 'ACT'.")
             return
-        response, error = self.user_dao.add_activityBlock(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id)
+        response, error = self.user_dao.add_activityBlock(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id, "ta")
         if response:
-            response_2, error_2 = self.user_dao.add_activity(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id)    
+            response_2, error_2 = self.user_dao.add_activity(self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id, "ta")    
             if response_2:
                 QtWidgets.QMessageBox.information(self, "Message", "Activity added successfully.")
                 self.ui_ta_addNewQuestion = TAAddQuestionLogic([self, self.textbook_id, self.chapter_id, self.section_id, self.block_id, unique_activity_id])
