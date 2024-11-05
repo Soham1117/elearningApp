@@ -56,7 +56,7 @@ class FacultyModifySectionLogic(QtWidgets.QWidget):
 
     def handle_add_new_block(self):
         section_id = self.ui.lineEdit_3.text()
-        if section_id[:3] != "Sec":
+        if section_id and section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
         if self.user_dao.checkSection(self.textbook_id, self.chapter_id, section_id):
@@ -68,7 +68,7 @@ class FacultyModifySectionLogic(QtWidgets.QWidget):
     
     def handle_modify_block(self):
         section_id = self.ui.lineEdit_3.text()
-        if section_id[:3] != "Sec":
+        if section_id and section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
         if self.user_dao.checkSection(self.textbook_id, self.chapter_id, section_id):

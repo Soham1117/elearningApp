@@ -32,7 +32,7 @@ class FacultyAddNewChapterLogic(QtWidgets.QWidget):
 
         chapter_id = self.ui.lineEdit_5.text()
         chapter_title = self.ui.lineEdit_6.text()
-        if chapter_id[:4] != "chap":
+        if chapter_id and chapter_title and chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
         response, error = self.user_dao.add_new_chapter(textbook_id, chapter_id, chapter_title)

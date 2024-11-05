@@ -28,7 +28,13 @@ class FacultyHideActivityLogic(QtWidgets.QWidget):
 
     def handle_hide_activity(self):
         activity_id=self.ui.lineEdit.text()
-        response,error=self.user_dao.hide_activity(self.textbook_id,self.chapter_id,self.section_id,self.block_id,activity_id)
+        if activity_id:
+            response,error=self.user_dao.hide_activity(self.textbook_id,self.chapter_id,self.section_id,self.block_id,activity_id)
+        else:
+            QtWidgets.QMessageBox.warning(self, "Warning", 'Invalid Activity Id')
+            return
+        
+        print(response)
         if response:
            QtWidgets.QMessageBox.information(self,'Information','Activity hidden status updated successfully!!') 
         else:

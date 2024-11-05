@@ -26,7 +26,7 @@ class FacultyAddNewSectionLogic(QtWidgets.QWidget):
     def handle_add_new_block(self):
         section_id = self.ui.lineEdit_3.text()
         section_title = self.ui.lineEdit_4.text()
-        if section_id[:3] != "Sec":
+        if section_id and section_title and section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
         response, error = self.user_dao.add_new_section(self.textbook_id, self.chapter_id, section_id, section_title)

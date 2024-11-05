@@ -27,7 +27,7 @@ class FacultyDeleteChapterLogic(QtWidgets.QWidget):
     def handle_delete_chapter(self):
         response,error=self.user_dao.delete_chapter(self.textbook_id,self.chapter_id)
         if response:
-           QtWidgets.QMessageBox.information(self,'Information','Section Deleted successfully!!') 
+           QtWidgets.QMessageBox.information(self,'Information','Chapter Deleted successfully!!') 
         else:
             QtWidgets.QMessageBox.warning(self, "Warning", str(error))    
 
