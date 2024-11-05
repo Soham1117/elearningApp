@@ -331,6 +331,19 @@ class UserDAO:
             print(f"Error fetching course: {e}")
             return None
         
+    # check if course_id and faculty_id match with course type
+    def check_faculty_course_match(self, course_id, faculty_id, course_type):
+        try:
+            cursor = self.db_connection.cursor()
+            query = "SELECT COUNT(*) FROM Course WHERE course_id = %s AND faculty_id = %s AND course_type = %s"
+            cursor.execute(query, (course_id, faculty_id, course_type))
+            result = cursor.fetchone()
+            cursor.close()
+            return result[0] > 0
+        except Exception as e:
+            print(f"Error validating faculty credentials for the course ID: {e}")
+            return False
+        
     # Faculty: Approve Enrollment
     # Check if student is already enrolled in the course
     def get_enrollment_by_student_id_and_course_id(self, student_id, course_id):

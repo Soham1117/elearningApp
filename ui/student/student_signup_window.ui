@@ -35,7 +35,7 @@
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>182</x>
@@ -82,6 +82,12 @@
         border: 2px solid #fcba03;  /* Border color when focused */
         color: #ffffff;  /* Text color when focused */
     }</string>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::InputMethodHint::ImhHiddenText|Qt::InputMethodHint::ImhNoAutoUppercase|Qt::InputMethodHint::ImhNoPredictiveText|Qt::InputMethodHint::ImhSensitiveData</set>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::EchoMode::Password</enum>
         </property>
        </widget>
       </item>
