@@ -28,6 +28,10 @@ class AdminAddTextLogic(QtWidgets.QWidget):
 
     def handle_add_new_text(self):
         text = self.ui.lineEdit_3.text()        
+        if not text:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Text is required.")
+            return
+        
         response, error = self.user_dao.add_new_text(self.textbook_id, self.chapter_id, self.section_id, self.block_id, text)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Text added successfully.")

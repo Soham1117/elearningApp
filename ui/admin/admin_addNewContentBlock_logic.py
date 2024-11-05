@@ -33,15 +33,23 @@ class AdminAddNewContentBlockLogic(QtWidgets.QWidget):
 
     def handle_add_new_text(self):
         block_id = self.ui.lineEdit_3.text()
+        if not block_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Block ID is required.")
+            return
+        
         if block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return
+        
         self.ui_admin_add_new_text = AdminAddTextLogic([self, self.textbook_id, self.chapter_id, self.section_id, block_id, self.admin_landing_window])
         self.ui_admin_add_new_text.show()
         self.close()
                 
     def handle_add_new_picture(self):
-        block_id = self.ui.lineEdit_3.text()        
+        block_id = self.ui.lineEdit_3.text()   
+        if not block_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Block ID is required.")
+            return     
         if block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return
@@ -51,6 +59,10 @@ class AdminAddNewContentBlockLogic(QtWidgets.QWidget):
             
     def handle_add_new_activity(self):
         block_id = self.ui.lineEdit_3.text()        
+        if not block_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Block ID is required.")
+            return
+        
         if block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block'.")
             return

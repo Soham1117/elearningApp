@@ -29,6 +29,10 @@ class AdminAddActivityLogic(QtWidgets.QWidget):
 
     def handle_add_new_activity(self):
         unique_activity_id = self.ui.lineEdit_3.text()   
+        if not unique_activity_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Activity ID is required.")
+            return
+        
         if unique_activity_id[:3] != "ACT":
             QtWidgets.QMessageBox.warning(self, "Warning", "Activity ID should start with 'ACT'.")
             return

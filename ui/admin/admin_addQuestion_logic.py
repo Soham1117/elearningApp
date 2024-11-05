@@ -45,6 +45,10 @@ class AdminAddQuestionLogic(QtWidgets.QWidget):
         option4_explanation = self.ui.lineEdit_13.text()
         answer = self.ui.lineEdit_17.text()
         
+        if not question_text or not option1_text or not option2_text or not option3_text or not option4_text or not answer or not option1_explanation or not option2_explanation or not option3_explanation or not option4_explanation:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all the fields.")
+            return
+        
         qa.append(question_id)
         qa.append(question_text)
         qa.append(option1_text)

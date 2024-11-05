@@ -26,6 +26,14 @@ class createAFacultyAccountLogic(QtWidgets.QWidget):
         email = self.ui.lineEdit_5.text()
         password = self.ui.lineEdit_6.text()
         
+        if not first_name or not last_name or not email or not password:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+        
+        if not email.__contains__("@"):
+            QtWidgets.QMessageBox.warning(self, "Error", "Please enter a valid email address.")
+            return
+        
         self.user_dao.create_faculty(first_name, last_name, email, password)
         QtWidgets.QMessageBox.information(self, "User Created", "User created successfully.")
         self.handle_back()

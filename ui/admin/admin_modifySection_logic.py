@@ -14,8 +14,6 @@ class AdminModifySectionLogic(QtWidgets.QWidget):
         self.textbook_id = args[1]
         self.chapter_id = args[2]
         self.admin_landing_window = args[3]
-        self.ui.lineEdit_3.setText(self.textbook_id)
-        self.ui.lineEdit_4.setText(self.chapter_id)
         self.ui.lineEdit_5.setText("Sec01")
         
         self.db_connection = get_db_connection()    
@@ -32,6 +30,10 @@ class AdminModifySectionLogic(QtWidgets.QWidget):
 
     def handle_add_new_block(self):
         section_id = self.ui.lineEdit_5.text()
+        if not section_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Section ID is required.")
+            return
+        
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
@@ -44,6 +46,10 @@ class AdminModifySectionLogic(QtWidgets.QWidget):
     
     def handle_modify_block(self):
         section_id = self.ui.lineEdit_5.text()
+        if not section_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Section ID is required.")
+            return
+        
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return

@@ -29,6 +29,10 @@ class AdminModifyChapterLogic(QtWidgets.QWidget):
 
     def handle_add_new_section(self):
         chapter_id = self.ui.lineEdit_3.text()
+        if not chapter_id:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+        
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
@@ -41,6 +45,9 @@ class AdminModifyChapterLogic(QtWidgets.QWidget):
 
     def handle_modify_section(self):
         chapter_id = self.ui.lineEdit_3.text()
+        if not chapter_id:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return

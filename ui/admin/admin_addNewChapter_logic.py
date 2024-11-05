@@ -28,9 +28,15 @@ class AdminAddNewChapterLogic(QtWidgets.QWidget):
     def handle_add_new_section(self):
         chapter_id = self.ui.lineEdit_3.text()
         chapter_title = self.ui.lineEdit_4.text()
+        
+        if not chapter_id or not chapter_title:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+        
         if chapter_id[:4] != "chap":
             QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
             return
+        
         response, error = self.user_dao.add_new_chapter(self.textbook_id, chapter_id, chapter_title)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Chapter added successfully.")

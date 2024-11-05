@@ -27,6 +27,10 @@ class modifyAETextbookLogic(QtWidgets.QWidget):
 
     def handle_modify_chapter(self):
         etextbook_id = self.ui.lineEdit_3.text()
+        if not etextbook_id:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+        
         if self.user_dao.checkTextbook(etextbook_id):
             self.ui_admin_modify_chapter = AdminModifyChapterLogic([self, etextbook_id, self.previous_window])
             self.ui_admin_modify_chapter.show()
@@ -36,6 +40,10 @@ class modifyAETextbookLogic(QtWidgets.QWidget):
     
     def handle_add_new_chapter(self):
         etextbook_id = self.ui.lineEdit_3.text()
+        if not etextbook_id:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+        
         if self.user_dao.checkTextbook(etextbook_id):
             self.ui_admin_add_new_chapter = AdminAddNewChapterLogic([self, etextbook_id, self.previous_window])
             self.ui_admin_add_new_chapter.show()

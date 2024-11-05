@@ -26,6 +26,10 @@ class createAETexbookLogic(QtWidgets.QWidget):
         title = self.ui.lineEdit_3.text()
         etextbook_id = self.ui.lineEdit_4.text()
         
+        if not title or not etextbook_id:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
+            return
+        
         response, error = self.user_dao.add_new_etextbook(title, etextbook_id)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "E Textbook added successfully.")

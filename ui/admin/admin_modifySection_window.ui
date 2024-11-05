@@ -35,99 +35,15 @@
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>130</y>
+     <x>52</x>
+     <y>150</y>
      <width>624</width>
-     <height>199</height>
+     <height>97</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label_4">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Unique E-textbook ID:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_3">
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {
-        background-color: #2b2b2b;  /* Dark background */
-        color: #fcba03;  /* Text color */
-        border: 2px solid #3d3d3d;  /* Border color */
-        border-radius: 8px;  /* Rounded corners */
-        padding: 8px;  /* Padding inside the input field */
-        font-size: 16px;  /* Font size */
-        font-weight: bold;  /* Bold font */
-    }
-
-    QLineEdit:hover {
-        background-color: #3d3d3d;  /* Background when hovered */
-        border: 2px solid #fcba03;  /* Border color when hovered */
-    }
-
-    QLineEdit:focus {
-        background-color: #1a1a1a;  /* Background when focused */
-        border: 2px solid #fcba03;  /* Border color when focused */
-        color: #ffffff;  /* Text color when focused */
-    }</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Chapter ID:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_4">
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {
-        background-color: #2b2b2b;  /* Dark background */
-        color: #fcba03;  /* Text color */
-        border: 2px solid #3d3d3d;  /* Border color */
-        border-radius: 8px;  /* Rounded corners */
-        padding: 8px;  /* Padding inside the input field */
-        font-size: 16px;  /* Font size */
-        font-weight: bold;  /* Bold font */
-    }
-
-    QLineEdit:hover {
-        background-color: #3d3d3d;  /* Background when hovered */
-        border: 2px solid #fcba03;  /* Border color when hovered */
-    }
-
-    QLineEdit:focus {
-        background-color: #1a1a1a;  /* Background when focused */
-        border: 2px solid #fcba03;  /* Border color when focused */
-        color: #ffffff;  /* Text color when focused */
-    }</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label_6">
         <property name="font">
@@ -169,7 +85,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="pushButton_back">
         <property name="styleSheet">

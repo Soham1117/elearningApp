@@ -28,10 +28,16 @@ class AdminAddNewSectionLogic(QtWidgets.QWidget):
     def handle_add_new_block(self):
         section_id = self.ui.lineEdit_3.text()
         section_title = self.ui.lineEdit_4.text()
+        
+        if not section_id or not section_title:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Section ID and Section Title are required.")
+            return
+        
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
         response, error = self.user_dao.add_new_content_block(self.textbook_id, self.chapter_id, section_id, section_title)
+        
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Section added successfully.")
             self.ui_admin_add_new_block = AdminAddNewContentBlockLogic([self, self.textbook_id, self.chapter_id, section_id, self.admin_landing_window])

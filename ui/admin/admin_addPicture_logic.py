@@ -27,7 +27,11 @@ class AdminAddPictureLogic(QtWidgets.QWidget):
         self.close()
 
     def handle_add_new_picture(self):
-        content = self.ui.lineEdit_3.text()        
+        content = self.ui.lineEdit_3.text()   
+        if not content:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Content is required.")
+            return
+             
         response, error = self.user_dao.add_new_picture(self.textbook_id, self.chapter_id, self.section_id, self.block_id, content)
         if response:
             QtWidgets.QMessageBox.information(self, "Message", "Picture added successfully.")

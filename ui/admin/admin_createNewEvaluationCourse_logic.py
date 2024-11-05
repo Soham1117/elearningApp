@@ -30,6 +30,10 @@ class createNewEvaluationCourseLogic(QtWidgets.QWidget):
         course_start_date = self.ui.lineEdit_7.text()
         course_end_date = self.ui.lineEdit_8.text()
         
+        if not course_id or not course_name or not etextbook_id or not course_start_date or not course_end_date or not faculty_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all fields.")
+            return
+        
         if self.user_dao.checkTextbook(etextbook_id) == False:
             QtWidgets.QMessageBox.warning(self, "Warning", "E Textbook ID does not exist.")
             return

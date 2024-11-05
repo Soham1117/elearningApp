@@ -31,9 +31,15 @@ class createNewActiveCourseLogic(QtWidgets.QWidget):
         unique_token = self.ui.lineEdit_8.text()
         course_capacity = self.ui.lineEdit_9.text()
         faculty_id = self.ui.lineEdit_10.text()
+        
+        if not course_id or not course_name or not etextbook_id or not course_start_date or not course_end_date or not unique_token or not course_capacity or not faculty_id:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all fields.")
+            return
+        
         if self.user_dao.checkTextbook(etextbook_id) == False:
             QtWidgets.QMessageBox.warning(self, "Warning", "E Textbook ID does not exist.")
             return
+        
         if self.user_dao.checkFaculty(faculty_id) == False:
             QtWidgets.QMessageBox.warning(self, "Warning", "Faculty ID does not exist.")
             return
