@@ -410,23 +410,33 @@ class UserDAO:
                 print(f"Error updating block hidden status: {e}")
                 return False, e
             
-    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id):
+    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id, user_role):
         try:
             cursor = self.db_connection.cursor()
             query = """
                 DELETE FROM Blocks
-                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND created_by = %s
             """
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))
+            print("Executing query:", query)
+            print("With parameters:", (textbook_id, chapter_id, section_id, block_id, user_role))
             
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, user_role))
+            print("Rows affected:", cursor.rowcount)
+
             # Commit the deletion
             self.db_connection.commit()
+            
+            if cursor.rowcount > 0:
+                result = (True, "Block deleted successfully")
+            else:
+                result = (False, "No matching block found or you do not have permission to delete this block.")
+            
             cursor.close()
-            return True, "Block deleted successfully"
+            return result
         except Exception as e:
             print(f"Error deleting block: {e}")
-            return False, e
-        
+            return False, str(e)
+            
     def add_new_chapter(self, textbook_id, chapter_id, chapter_title, created_by):
         try:
             cursor = self.db_connection.cursor()
@@ -743,28 +753,6 @@ class UserDAO:
         except Exception as e:
             cursor.close()
             print(f"Error deleting section: {e}")
-            return False, e
-
-
-    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id):
-        cursor = self.db_connection.cursor()
-        try:
-            
-            print(textbook_id,chapter_id,section_id,block_id)
-            query = """
-                DELETE FROM Blocks
-                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s
-            """
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))
-            
-            # Commit the deletion
-            self.db_connection.commit()
-            cursor.close()
-            
-            return True, "Block deleted successfully"
-        except Exception as e:
-            cursor.close()
-            print(f"Error deleting block: {e}")
             return False, e
 
     

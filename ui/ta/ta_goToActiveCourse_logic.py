@@ -21,11 +21,7 @@ class TAGoToActiveCourseLogic(QtWidgets.QWidget):
         self.ui.pushButton.clicked.connect(self.view_students)
         self.ui.pushButton_2.clicked.connect(self.add_new_chapter)
         self.ui.pushButton_3.clicked.connect(self.modify_chapters)
-        self.ui.pushButton_back.clicked.connect(self.handle_ta_landing)
-        
-    # def handle_back(self):    
-    #     self.previous_window.show()
-    #     self.close()
+        self.ui.pushButton_back.clicked.connect(self.handle_back)
 
     def view_students(self):
         course_id = self.ui.lineEdit_3.text()
@@ -54,6 +50,6 @@ class TAGoToActiveCourseLogic(QtWidgets.QWidget):
         self.ta_modifyChapters.show()
         self.close()
     
-    def handle_ta_landing(self):
+    def handle_back(self):
         self.previous_window.show()
         self.close()

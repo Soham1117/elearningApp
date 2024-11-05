@@ -62,8 +62,12 @@ class TAModifySectionLogic(QtWidgets.QWidget):
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
-        if self.user_dao.checkSection(self.textbook_id, self.chapter_id, section_id):
-            self.ui_ta_deleteBlock = TADeleteContentBlockLogic([self, self.textbook_id, self.chapter_id, section_id])
+        textbook_id = self.ui.lineEdit_3.text()
+        if not self.user_dao.checkTextbook(textbook_id):
+            QtWidgets.QMessageBox.warning(self, "Warning", "Textbook ID does not exist.")
+            return
+        if self.user_dao.checkSection(textbook_id, self.chapter_id, section_id):
+            self.ui_ta_deleteBlock = TADeleteContentBlockLogic([self, textbook_id, self.chapter_id, section_id])
             self.ui_ta_deleteBlock.show()
             self.close()
         else:

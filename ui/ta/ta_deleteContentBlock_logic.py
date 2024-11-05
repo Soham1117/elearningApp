@@ -30,7 +30,8 @@ class TADeleteContentBlockLogic(QtWidgets.QWidget):
         if content_block_id[:5] != "Block":
             QtWidgets.QMessageBox.warning(self, "Warning", "Block ID should start with 'Block' followed by 2 digits.")
             return
-        response,error=self.user_dao.delete_content_block(self.textbook_id,self.chapter_id,self.section_id, content_block_id)
+        user_role="ta"
+        response,error=self.user_dao.delete_content_block(self.textbook_id,self.chapter_id,self.section_id, content_block_id, user_role)
         if response:
            QtWidgets.QMessageBox.information(self,'Information','Content Block Deleted successfully!!')
            self.previous_window.show()
