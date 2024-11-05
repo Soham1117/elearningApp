@@ -4,7 +4,7 @@ from db.db_connection import get_db_connection
 from ui.ta.ta_addActivity_window import Ui_TaAddActivityWindow
 from ui.ta.ta_addQuestion_logic import TAAddQuestionLogic
 
-class TAAddActivityLogic(QtWidgets.QWidget):
+class TAAddActivityLogic(QtWidgets.QWidget):        
     def __init__(self, args):
         super().__init__()
         self.ui = Ui_TaAddActivityWindow()
