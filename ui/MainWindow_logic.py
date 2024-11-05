@@ -3,7 +3,6 @@ from PySide6 import QtWidgets
 from ui.MainWindow_window import Ui_MainWindow
 from ui.admin.admin_login_logic import AdminLoginLogic
 from ui.faculty.faculty_login_logic import FacultyLoginLogic
-from ui.faculty.faculty_modify_chapter_window_logic import FacultyModifyChapterLogic
 from ui.ta.ta_login_logic import TALoginLogic
 from ui.student.student_login_logic import StudentLoginLogic
 from ui.queries_logic import QueriesLogic

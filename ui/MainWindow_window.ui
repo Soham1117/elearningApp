@@ -16,8 +16,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>40</y>
+     <x>271</x>
+     <y>70</y>
      <width>161</width>
      <height>31</height>
     </rect>
@@ -35,33 +35,31 @@
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>150</y>
-     <width>311</width>
-     <height>201</height>
+     <x>182</x>
+     <y>153</y>
+     <width>341</width>
+     <height>181</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Login Type:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="comboBox">
-          <property name="styleSheet">
-           <string notr="true">QComboBox {
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Login Type:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <property name="styleSheet">
+         <string notr="true">QComboBox {
     background-color: #2b2b2b;
     color: #ffffff;
     border: 2px solid #3d3d3d;
@@ -89,37 +87,67 @@ QComboBox QAbstractItemView {
     color: #ffffff;
 }
 </string>
-          </property>
-          <item>
-           <property name="text">
-            <string>Admin</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Faculty</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>TA</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Student</string>
-           </property>
-          </item>
-         </widget>
+        </property>
+        <item>
+         <property name="text">
+          <string>Admin</string>
+         </property>
         </item>
-       </layout>
+        <item>
+         <property name="text">
+          <string>Faculty</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TA</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Student</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: #2b2b2b;  
+        color: #fcba03;              
+        border: 2px solid #3d3d3d;      
+        border-radius: 8px;          
+        padding: 8px 16px;            
+        font-size: 16px;            
+        font-weight: bold;
+    
+    }
+
+    QPushButton:hover {
+        background-color: #fcba03;
+		 color: #000000;
+        border: 2px solid #5a5a5a;    
+    }
+
+    QPushButton:pressed {
+        background-color: #1a1a1a;      
+        border: 2px solid #2b2b2b;      
+    }</string>
+        </property>
+        <property name="text">
+         <string>Login</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
         background-color: #2b2b2b;  
         color: #fcba03;              
         border: 2px solid #3d3d3d;      
@@ -140,43 +168,11 @@ QComboBox QAbstractItemView {
         background-color: #1a1a1a;      
         border: 2px solid #2b2b2b;      
     }</string>
-          </property>
-          <property name="text">
-           <string>Login</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-        background-color: #2b2b2b;  
-        color: #fcba03;              
-        border: 2px solid #3d3d3d;      
-        border-radius: 8px;          
-        padding: 8px 16px;            
-        font-size: 16px;            
-        font-weight: bold;
-    
-    }
-
-    QPushButton:hover {
-        background-color: #fcba03;
-		 color: #000000;
-        border: 2px solid #5a5a5a;    
-    }
-
-    QPushButton:pressed {
-        background-color: #1a1a1a;      
-        border: 2px solid #2b2b2b;      
-    }</string>
-          </property>
-          <property name="text">
-           <string>Exit</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        </property>
+        <property name="text">
+         <string>Exit</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
