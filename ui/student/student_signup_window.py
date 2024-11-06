@@ -21,21 +21,21 @@ class Ui_StudentSignupWindow(object):
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
-        self.widget = QtWidgets.QWidget(parent=Form)
-        self.widget.setGeometry(QtCore.QRect(182, 142, 381, 148))
-        self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
+        self.layoutWidget = QtWidgets.QWidget(parent=Form)
+        self.layoutWidget.setGeometry(QtCore.QRect(182, 142, 381, 148))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label_2 = QtWidgets.QLabel(parent=self.widget)
+        self.label_2 = QtWidgets.QLabel(parent=self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
-        self.lineEdit = QtWidgets.QLineEdit(parent=self.widget)
+        self.lineEdit = QtWidgets.QLineEdit(parent=self.layoutWidget)
         self.lineEdit.setStyleSheet("QLineEdit {\n"
 "        background-color: #2b2b2b;  /* Dark background */\n"
 "        color: #fcba03;  /* Text color */\n"
@@ -56,18 +56,20 @@ class Ui_StudentSignupWindow(object):
 "        border: 2px solid #fcba03;  /* Border color when focused */\n"
 "        color: #ffffff;  /* Text color when focused */\n"
 "    }")
+        self.lineEdit.setInputMethodHints(QtCore.Qt.InputMethodHint.ImhHiddenText|QtCore.Qt.InputMethodHint.ImhNoAutoUppercase|QtCore.Qt.InputMethodHint.ImhNoPredictiveText|QtCore.Qt.InputMethodHint.ImhSensitiveData)
+        self.lineEdit.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout.addWidget(self.lineEdit)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.label_3 = QtWidgets.QLabel(parent=self.widget)
+        self.label_3 = QtWidgets.QLabel(parent=self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_2.addWidget(self.label_3)
-        self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.widget)
+        self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.layoutWidget)
         self.lineEdit_2.setStyleSheet("QLineEdit {\n"
 "        background-color: #2b2b2b;  /* Dark background */\n"
 "        color: #fcba03;  /* Text color */\n"
@@ -94,7 +96,7 @@ class Ui_StudentSignupWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.pushButton_6 = QtWidgets.QPushButton(parent=self.widget)
+        self.pushButton_6 = QtWidgets.QPushButton(parent=self.layoutWidget)
         self.pushButton_6.setStyleSheet("QPushButton {\n"
 "        background-color: #2b2b2b;  \n"
 "        color: #fcba03;              \n"
@@ -118,7 +120,7 @@ class Ui_StudentSignupWindow(object):
 "    }")
         self.pushButton_6.setObjectName("pushButton_6")
         self.horizontalLayout_3.addWidget(self.pushButton_6)
-        self.pushButton_5 = QtWidgets.QPushButton(parent=self.widget)
+        self.pushButton_5 = QtWidgets.QPushButton(parent=self.layoutWidget)
         self.pushButton_5.setStyleSheet("QPushButton {\n"
 "        background-color: #2b2b2b;  \n"
 "        color: #fcba03;              \n"
