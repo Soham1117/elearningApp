@@ -446,7 +446,7 @@ class UserDAO:
             print(f"Error deleting block: {e}")
             return False, str(e)
             
-    def add_new_chapter(self, textbook_id, chapter_id, chapter_title, created_by='faculty'):
+    def add_new_chapter(self, textbook_id, chapter_id, chapter_title, created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -461,7 +461,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
     
-    def add_new_content_block(self, textbook_id, chapter_id, section_id, section_title, created_by='faculty'):
+    def add_new_content_block(self, textbook_id, chapter_id, section_id, section_title, created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -476,7 +476,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 	    
-    def add_new_section(self, textbook_id, chapter_id, section_id, section_title, created_by):
+    def add_new_section(self, textbook_id, chapter_id, section_id, section_title, created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -491,7 +491,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
     
-    def add_new_text(self, textbook_id, chapter_id, section_id, block_id, text,created_by='faculty'):
+    def add_new_text(self, textbook_id, chapter_id, section_id, block_id, text,created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -508,7 +508,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 
-    def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content,created_by='faculty'):
+    def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content,created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -550,7 +550,7 @@ class UserDAO:
             return False, e
         
     
-    def add_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, created_by='faculty'):
+    def add_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -755,9 +755,14 @@ class UserDAO:
             
             # Commit the deletion
             self.db_connection.commit()
+            if cursor.rowcount > 0:
+                result = (True, "Chapter deleted successfully")
+            else:
+                result = (False, "No matching block found or you do not have permission to delete this block.")
+            
             cursor.close()
             
-            return True, "Section deleted successfully"
+            return result
         except Exception as e:
             cursor.close()
             print(f"Error deleting section: {e}")
@@ -868,9 +873,15 @@ class UserDAO:
             
             # Commit the deletion
             self.db_connection.commit()
+            if cursor.rowcount > 0:
+                result = (True, "Chapter deleted successfully")
+            else:
+                result = (False, "No matching block found or you do not have permission to delete this block.")
             cursor.close()
+
+
             
-            return True, "Chapter deleted successfully"
+            return result
         except Exception as e:
             cursor.close()
             print(f"Error deleting chapter: {e}")
@@ -888,9 +899,14 @@ class UserDAO:
             
             # Commit the deletion
             self.db_connection.commit()
+            if cursor.rowcount > 0:
+                result = (True, "Chapter deleted successfully")
+            else:
+                result = (False, "No matching block found or you do not have permission to delete this block.")
+            
             cursor.close()
             
-            return True, "Activity deleted successfully"
+            return result
         except Exception as e:
             cursor.close()
             print(f"Error deleting activity: {e}")
