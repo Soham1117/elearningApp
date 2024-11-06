@@ -413,14 +413,23 @@ class UserDAO:
     def delete_content_block(self, textbook_id, chapter_id, section_id, block_id, user_role):
         try:
             cursor = self.db_connection.cursor()
-            query = """
+            if user_role=='ta':
+                query = """
                 DELETE FROM Blocks
                 WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND created_by = %s
             """
+            else: #faculty check if created_by is admin then no delete
+                query="""
+                DELETE FROM Blocks
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND created_by != 'admin'
+                """    
             print("Executing query:", query)
             print("With parameters:", (textbook_id, chapter_id, section_id, block_id, user_role))
             
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, user_role))
+            if user_role=='ta':
+                cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, user_role))
+            else:
+                cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))   
             print("Rows affected:", cursor.rowcount)
 
             # Commit the deletion
@@ -437,7 +446,7 @@ class UserDAO:
             print(f"Error deleting block: {e}")
             return False, str(e)
             
-    def add_new_chapter(self, textbook_id, chapter_id, chapter_title, created_by):
+    def add_new_chapter(self, textbook_id, chapter_id, chapter_title, created_by='faculty'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -452,7 +461,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
     
-    def add_new_content_block(self, textbook_id, chapter_id, section_id, section_title, created_by):
+    def add_new_content_block(self, textbook_id, chapter_id, section_id, section_title, created_by='faculty'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -482,7 +491,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
     
-    def add_new_text(self, textbook_id, chapter_id, section_id, block_id, text):
+    def add_new_text(self, textbook_id, chapter_id, section_id, block_id, text,created_by='faculty'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -490,8 +499,8 @@ class UserDAO:
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             type_of_block = "text"
             hidden = "no"
-            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, text, hidden, created_at, updated_at))
+            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at,created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, text, hidden, created_at, updated_at,created_by))
             self.db_connection.commit()
             cursor.close()
             return True, "Text added successfully"
@@ -499,7 +508,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 
-    def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content):
+    def add_new_picture(self, textbook_id, chapter_id, section_id, block_id, content,created_by='faculty'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -507,8 +516,8 @@ class UserDAO:
             updated_at = current_date.strftime("%Y-%m-%d %H:%M:%S")
             type_of_block = "picture"
             hidden = "no"
-            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at))
+            query = "INSERT INTO Blocks (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at,created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, type_of_block, content, hidden, created_at, updated_at,created_by))
             self.db_connection.commit()
             cursor.close()
             return True, "Text added successfully"
@@ -541,7 +550,7 @@ class UserDAO:
             return False, e
         
     
-    def add_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, created_by):
+    def add_activity(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, created_by='faculty'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()
@@ -738,10 +747,9 @@ class UserDAO:
         cursor = self.db_connection.cursor()
         try:
             
-            print(textbook_id,section_id,chapter_id,'in delete section')
             query = """
                 DELETE FROM Section
-                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND created_by!='admin'
             """
             cursor.execute(query, (textbook_id, chapter_id, section_id))
             
@@ -854,7 +862,7 @@ class UserDAO:
             
             query = """
                 DELETE FROM Chapter
-                WHERE textbook_id = %s AND chapter_id = %s
+                WHERE textbook_id = %s AND chapter_id = %s AND created_by!='admin'
             """
             cursor.execute(query, (textbook_id, chapter_id))
             
@@ -874,7 +882,7 @@ class UserDAO:
             
             query = """
                 DELETE FROM Activity
-                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND unique_activity_id = %s
+                WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND unique_activity_id = %s AND created_by!='admin'
             """
             cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, unique_activity_id))
             
