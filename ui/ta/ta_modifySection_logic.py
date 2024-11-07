@@ -35,11 +35,21 @@ class TAModifySectionLogic(QtWidgets.QWidget):
 
     def handle_add_new_block(self):
         section_id = self.ui.lineEdit_5.text()
+        chapter_id = self.ui.lineEdit_6.text()
+        if chapter_id[:4] != "chap":
+            QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
+            return
+        
+        textbook_id = self.ui.lineEdit_3.text()
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
-        if self.user_dao.checkSection(self.textbook_id, self.chapter_id, section_id):
-            self.ui_ta_addNewBlock = TAAddNewContentBlockLogic([self, self.textbook_id, self.chapter_id, section_id])
+
+        if not self.user_dao.checkTextbook(textbook_id):
+            QtWidgets.QMessageBox.warning(self, "Warning", "Textbook ID does not exist.")
+            return
+        if self.user_dao.checkSection(textbook_id, chapter_id, section_id):
+            self.ui_ta_addNewBlock = TAAddNewContentBlockLogic([self, textbook_id, chapter_id, section_id])
             self.ui_ta_addNewBlock.show()
             self.close()
         else:
@@ -47,11 +57,21 @@ class TAModifySectionLogic(QtWidgets.QWidget):
     
     def handle_modify_block(self):
         section_id = self.ui.lineEdit_5.text()
+        chapter_id = self.ui.lineEdit_6.text()
+        if chapter_id[:4] != "chap":
+            QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
+            return
+        
+        textbook_id = self.ui.lineEdit_3.text()
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
-        if self.user_dao.checkSection(self.textbook_id, self.chapter_id, section_id):
-            self.ui_ta_modifyBlock = TAModifyContentBlockLogic([self, self.textbook_id, self.chapter_id, section_id])
+
+        if not self.user_dao.checkTextbook(textbook_id):
+            QtWidgets.QMessageBox.warning(self, "Warning", "Textbook ID does not exist.")
+            return
+        if self.user_dao.checkSection(self.textbook_id, chapter_id, section_id):
+            self.ui_ta_modifyBlock = TAModifyContentBlockLogic([self, textbook_id, chapter_id, section_id])
             self.ui_ta_modifyBlock.show()
             self.close()
         else: 
@@ -59,15 +79,21 @@ class TAModifySectionLogic(QtWidgets.QWidget):
 
     def handle_delete_block(self):
         section_id = self.ui.lineEdit_5.text()
+        chapter_id = self.ui.lineEdit_6.text()
+        if chapter_id[:4] != "chap":
+            QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
+            return
+        
+        textbook_id = self.ui.lineEdit_3.text()
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
-        textbook_id = self.ui.lineEdit_3.text()
+
         if not self.user_dao.checkTextbook(textbook_id):
             QtWidgets.QMessageBox.warning(self, "Warning", "Textbook ID does not exist.")
             return
-        if self.user_dao.checkSection(textbook_id, self.chapter_id, section_id):
-            self.ui_ta_deleteBlock = TADeleteContentBlockLogic([self, textbook_id, self.chapter_id, section_id])
+        if self.user_dao.checkSection(textbook_id, chapter_id, section_id):
+            self.ui_ta_deleteBlock = TADeleteContentBlockLogic([self, textbook_id, chapter_id, section_id])
             self.ui_ta_deleteBlock.show()
             self.close()
         else:
@@ -75,11 +101,21 @@ class TAModifySectionLogic(QtWidgets.QWidget):
     
     def handle_hide_block(self):
         section_id = self.ui.lineEdit_5.text()
+        chapter_id = self.ui.lineEdit_6.text()
+        if chapter_id[:4] != "chap":
+            QtWidgets.QMessageBox.warning(self, "Warning", "Chapter ID should start with 'chap' followed by 2 digits.")
+            return
+        
+        textbook_id = self.ui.lineEdit_3.text()
         if section_id[:3] != "Sec":
             QtWidgets.QMessageBox.warning(self, "Warning", "Section ID should start with 'Sec' followed by 2 digits.")
             return
-        if self.user_dao.checkSection(self.textbook_id, self.chapter_id, section_id):
-            self.ui_ta_hideBlock = TAHideContentBlockLogic([self, self.textbook_id, self.chapter_id, section_id])
+
+        if not self.user_dao.checkTextbook(textbook_id):
+            QtWidgets.QMessageBox.warning(self, "Warning", "Textbook ID does not exist.")
+            return
+        if self.user_dao.checkSection(textbook_id, chapter_id, section_id):
+            self.ui_ta_hideBlock = TAHideContentBlockLogic([self, textbook_id, chapter_id, section_id])
             self.ui_ta_hideBlock.show()
             self.close()
         else:

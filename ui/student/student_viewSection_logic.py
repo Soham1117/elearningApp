@@ -29,11 +29,15 @@ class StudentViewSectionLogic(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill in all fields.")
             return
 
-        # go to view block logic
-        self.ui_student_view_block = StudentViewBlockLogic([self, self.student_id, textbook_id, chapter_id, section_id, self.previous_window])
-        self.ui_student_view_block.show()
-        self.close()
-
+        self.blocks = self.user_dao.get_blocks(textbook_id, chapter_id, section_id)
+        if self.blocks:
+            self.ui_student_view_block = StudentViewBlockLogic([self, self.student_id, textbook_id, chapter_id, section_id, self.previous_window])
+            self.ui_student_view_block.show()
+            self.close()    
+        else:
+            QtWidgets.QMessageBox.warning(self, "Warning", "No blocks found.")
+            return
+        
     def handle_back(self):
         self.previous_window.show()
         self.close()

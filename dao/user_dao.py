@@ -423,10 +423,10 @@ class UserDAO:
                 print(f"Error updating block hidden status: {e}")
                 return False, e
             
-    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id, user_role):
+    def delete_content_block(self, textbook_id, chapter_id, section_id, block_id, created_by="fac"):
         try:
             cursor = self.db_connection.cursor()
-            if user_role=='ta':
+            if created_by=='ta':
                 query = """
                 DELETE FROM Blocks
                 WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND created_by = %s
@@ -436,14 +436,11 @@ class UserDAO:
                 DELETE FROM Blocks
                 WHERE textbook_id = %s AND chapter_id = %s AND section_id = %s AND block_id = %s AND created_by != 'admin'
                 """    
-            print("Executing query:", query)
-            print("With parameters:", (textbook_id, chapter_id, section_id, block_id, user_role))
-            
-            if user_role=='ta':
-                cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, user_role))
+            if created_by=='ta':
+                cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, created_by))
             else:
                 cursor.execute(query, (textbook_id, chapter_id, section_id, block_id))   
-            print("Rows affected:", cursor.rowcount)
+
 
             # Commit the deletion
             self.db_connection.commit()
@@ -538,7 +535,7 @@ class UserDAO:
             print(f"Error adding new textbook: {e}")
             return False, e
 
-    def add_question(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, qa, created_by):
+    def add_question(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, qa, created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             question_id = qa[0]
@@ -553,8 +550,10 @@ class UserDAO:
             option4_explanation = qa[9]
             answer = qa[10]
             
-            query = "INSERT INTO Question (textbook_id, chapter_id, section_id, block_id, unique_activity_id, question_id, question_text, option_1, explanation_1, option_2, explanation_2, option_3, explanation_3, option_4, explanation_4, answer, created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, unique_activity_id, question_id, question_text, option1_text, option1_explanation, option2_text, option2_explanation, option3_text, option3_explanation, option4_text, option4_explanation, answer, created_by))
+            query = "INSERT INTO Question (textbook_id, chapter_id, section_id, block_id, unique_activity_id, question_id, question_text, option_1, explanation_1, option_2, explanation_2, option_3, explanation_3, option_4, explanation_4, answer, created_by) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (textbook_id, chapter_id, section_id, block_id, unique_activity_id, question_id, 
+                                   question_text, option1_text, option1_explanation, option2_text, option2_explanation, 
+                                   option3_text, option3_explanation, option4_text, option4_explanation, answer, created_by))
             self.db_connection.commit()
             cursor.close()            
             return True, "Question added successfully"  
@@ -579,7 +578,7 @@ class UserDAO:
             print(f"Error adding new activity: {e}")
             return False, e 
         
-    def add_activityBlock(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, created_by):
+    def add_activityBlock(self, textbook_id, chapter_id, section_id, block_id, unique_activity_id, created_by='fac'):
         try:
             cursor = self.db_connection.cursor()
             current_date = datetime.now()

@@ -30,5 +30,7 @@ class FacultyDeleteChapterLogic(QtWidgets.QWidget):
            QtWidgets.QMessageBox.information(self,'Information','Chapter Deleted successfully!!') 
         else:
             QtWidgets.QMessageBox.warning(self, "Warning", str(error))    
+        self.previous_window.show()
+        self.close()
 
         

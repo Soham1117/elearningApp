@@ -19,7 +19,7 @@ class TAAddNewContentBlockLogic(QtWidgets.QWidget):
         
         self.db_connection = get_db_connection()    
         self.user_dao = UserDAO(self.db_connection)
-
+        self.ui.pushButton_4.hide()
         self.ui.pushButton_back.clicked.connect(self.handle_back)
         self.ui.pushButton.clicked.connect(self.handle_add_new_text)
         self.ui.pushButton_2.clicked.connect(self.handle_add_new_picture)

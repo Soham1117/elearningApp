@@ -77,8 +77,8 @@ class StudentViewBlockLogic(QtWidgets.QWidget):
         self.ui.frame_2.hide()
         score = 0
 
-        text = 'Score: 1' if int(answer) == question[-1] else 'Score: 0'
-        if int(answer) == question[-1]:
+        text = 'Score: 1' if int(answer) == question[-2] else 'Score: 0'
+        if int(answer) == question[-2]:
             score = 1
 
         self.score += score

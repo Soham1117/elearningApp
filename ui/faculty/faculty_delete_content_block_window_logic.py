@@ -26,7 +26,7 @@ class FacultyDeleteContentBlockLogic(QtWidgets.QWidget):
         self.close()
 
     def handle_delete_content_block(self):
-        response,error=self.user_dao.delete_content_block(self.textbook_id,self.chapter_id,self.section_id,self.content_block_id)
+        response,error=self.user_dao.delete_content_block(self.textbook_id, self.chapter_id, self.section_id, self.content_block_id, "fac")
         if response:
            QtWidgets.QMessageBox.information(self,'Information','Block Deleted successfully!!') 
         else:
