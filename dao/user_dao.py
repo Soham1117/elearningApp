@@ -1363,22 +1363,22 @@ class UserDAO:
                 SELECT question_id, unique_activity_id, answer,
                     1 as option_number, option_1 as option_text, explanation_1 as explanation 
                 FROM Question 
-                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0' AND section_id = 'Sec02' AND chapter_id = 'chap01' AND textbook_id  = '101'
                 UNION ALL
                 SELECT question_id, unique_activity_id, answer,
                     2, option_2, explanation_2 
                 FROM Question 
-                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0' AND section_id = 'Sec02' AND chapter_id = 'chap01' AND textbook_id  = '101'
                 UNION ALL
                 SELECT question_id, unique_activity_id, answer,
                     3, option_3, explanation_3 
                 FROM Question 
-                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0' AND section_id = 'Sec02' AND chapter_id = 'chap01' AND textbook_id  = '101'
                 UNION ALL
                 SELECT question_id, unique_activity_id, answer,
                     4, option_4, explanation_4 
                 FROM Question 
-                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0'
+                WHERE question_id = 'Q2' AND unique_activity_id = 'ACT0' AND section_id = 'Sec02' AND chapter_id = 'chap01' AND textbook_id  = '101'
                 )
                 SELECT 
                     CONCAT('Option ', option_number) as option_number,
